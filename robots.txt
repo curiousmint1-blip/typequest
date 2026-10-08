@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://curiousmint1-blip.github.io/typequest/sitemap.xml
