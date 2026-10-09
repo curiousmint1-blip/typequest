@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://curiousmint1-blip.github.io/typequest/sitemap.xml
+Sitemap: https://mytypingsir.jo3.org/sitemap.xml
