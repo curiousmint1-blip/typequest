@@ -19,7 +19,7 @@
 <meta name="twitter:description" content="Learn touch typing with lessons, games, finger guide, WPM stats & themes. Free!">
 <meta name="twitter:image" content="https://curiousmint1-blip.github.io/typequest/og-image.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"TypeQuest","url":"https://curiousmint1-blip.github.io/typequest/","applicationCategory":"EducationalApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free online typing tutor with 18 lessons, typing games, finger guide, live WPM statistics, per-key accuracy heatmap, achievements and 6 themes.","featureList":"18 typing lessons, typing games, finger guide, WPM tests, accuracy heatmap, achievements, 6 themes, sound effects","inLanguage":"en"}</script>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff2d95'/%3E%3Cstop offset='1' stop-color='%238b5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Cpath d='M16 33 32 19l16 14' fill='none' stroke='%23fff' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M21 31v16h22V31' fill='none' stroke='%23fff' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff2d95'/%3E%3Cstop offset='1' stop-color='%238b5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='9' y='15' width='46' height='43' rx='11' fill='%230b0614'/%3E%3Crect x='9' y='15' width='46' height='43' rx='11' fill='url(%23g)' opacity='.45'/%3E%3Crect x='9' y='9' width='46' height='43' rx='11' fill='url(%23g)'/%3E%3Crect x='10' y='10' width='44' height='41' rx='10' fill='none' stroke='%23ffffff' stroke-opacity='.3' stroke-width='1.5'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='ui-monospace,Consolas,monospace' font-weight='800' font-size='27' fill='%23ffffff'%3ET%3C/text%3E%3C/svg%3E">
 <title>TypeQuest — Typing Practice & Games</title>
 <style>
 /* ============ THEMES ============ */
@@ -82,7 +82,7 @@ button{font-family:inherit;color:inherit;background:none;border:none;cursor:poin
 button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--a2);outline-offset:2px}
 .mono{font-family:var(--mono)}
 .muted{color:var(--muted)}
-.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px}
 /* background fx */
 .blob{position:fixed;border-radius:50%;filter:blur(80px);opacity:.3;z-index:-2;pointer-events:none}
 #b1{width:540px;height:540px;background:var(--a1);top:-160px;left:-140px;animation:blob1 26s ease-in-out infinite alternate}
@@ -100,21 +100,32 @@ html[data-theme="light"] .blob{opacity:.14}
 }
 html[data-theme="light"] .gridfx{opacity:.6}
 #fx{position:fixed;inset:0;z-index:60;pointer-events:none}
+/* ============ SITE BODY + AD RAILS ============ */
+.site-body{display:flex;justify-content:center;align-items:flex-start;gap:20px}
+#app{width:100%;max-width:1000px;min-width:0}
+.ad-rail{flex:0 0 170px;width:170px;position:sticky;top:84px;display:none}
+.ad-box{width:160px;height:600px;margin:0 auto;border:1.5px dashed color-mix(in srgb,var(--muted) 45%,transparent);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--muted);background:var(--card);overflow:hidden}
+.ad-box .ad-tag{font-size:10px;font-weight:800;letter-spacing:2.5px;opacity:.75}
+.ad-box .ad-size{font-family:var(--mono);font-size:11px;opacity:.6}
+@media(min-width:1480px){.ad-rail{display:block}}
 /* ============ HEADER ============ */
 .site-h{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 78%,transparent);
   -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 .hrow{display:flex;align-items:center;justify-content:space-between;height:64px;gap:14px}
 .logo{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
-.logocap{display:grid;place-items:center;width:40px;height:40px;border-radius:11px;font-family:var(--mono);
-  font-weight:800;font-size:15px;color:#fff;background:linear-gradient(135deg,var(--a1),var(--a3));
-  box-shadow:0 4px 16px var(--glow);animation:logoPulse 3s ease-in-out infinite;transition:transform .15s ease}
-.logocap svg{display:block;width:20px;height:20px;color:#fff}
-.logo:hover .logocap svg{animation:homeBounce .55s ease}
-.logo:active .logocap{transform:scale(.88)}
-@keyframes homeBounce{0%,100%{transform:translateY(0) rotate(0)}30%{transform:translateY(-3px) rotate(-5deg)}55%{transform:translateY(0) rotate(0)}75%{transform:translateY(-1.5px) rotate(4deg)}}
-@keyframes logoPulse{0%,100%{box-shadow:0 4px 16px var(--glow)}50%{box-shadow:0 4px 28px var(--glow),0 0 0 3px color-mix(in srgb,var(--a2) 25%,transparent)}}
-.logotype{font-weight:800;font-size:19px;letter-spacing:-.3px}
+/* logo: mechanical keycap mark + caret wordmark */
+.logocap{display:grid;place-items:center;width:42px;height:40px;border-radius:11px;font-family:var(--mono);
+  font-weight:800;font-size:20px;color:#fff;background:linear-gradient(160deg,var(--a1),var(--a3));
+  border:1px solid rgba(255,255,255,.22);text-shadow:0 1px 2px rgba(0,0,0,.35);
+  box-shadow:0 4px 0 color-mix(in srgb,var(--a3) 55%,#000),0 9px 20px var(--glow);
+  transition:transform .09s ease,box-shadow .09s ease}
+.logo:hover .logocap{transform:translateY(1.5px);box-shadow:0 2.5px 0 color-mix(in srgb,var(--a3) 55%,#000),0 6px 12px var(--glow)}
+.logo:active .logocap{transform:translateY(4px);box-shadow:0 0 0 color-mix(in srgb,var(--a3) 55%,#000),0 3px 8px var(--glow)}
+.logotype{font-weight:800;font-size:19px;letter-spacing:-.3px;white-space:nowrap}
 .logotype b{background:linear-gradient(135deg,var(--a1),var(--a2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.lcaret{display:inline-block;width:3px;height:.72em;margin:0 4px 0 2px;border-radius:2px;vertical-align:-.04em;
+  background:linear-gradient(180deg,var(--a1),var(--a2));box-shadow:0 0 7px color-mix(in srgb,var(--a2) 70%,transparent);
+  animation:blink 1.1s steps(2,start) infinite}
 .mainnav{display:flex;gap:4px}
 .navlink{padding:8px 13px;border-radius:10px;font-weight:600;font-size:14px;color:var(--muted);cursor:pointer;transition:.18s;position:relative;white-space:nowrap}
 .navlink:hover{color:var(--text);background:var(--card)}
@@ -474,7 +485,8 @@ input[type=range]{accent-color:var(--a1);width:180px}
     border-bottom:1px solid var(--line);padding:12px 18px;display:none;z-index:49;gap:2px}
   body.nav-open .mainnav{display:flex;animation:slideUp .25s ease}
   .burger{display:grid}
-  .logotype{display:none}
+  .logotype{font-size:15.5px}
+  .logo{gap:8px}
   .words{font-size:22px;line-height:38px}
   .words-viewport{height:114px}
   .tips-list{grid-template-columns:1fr}
@@ -509,7 +521,7 @@ input[type=range]{accent-color:var(--a1);width:180px}
 <header class="site-h">
   <div class="wrap hrow">
     <a class="logo" data-route="home" aria-label="TypeQuest — Home" title="Home">
-      <span class="logocap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></svg></span><span class="logotype">Type<b>Quest</b></span>
+      <span class="logocap" aria-hidden="true">T</span><span class="logotype">Type<span class="lcaret" aria-hidden="true"></span><b>Quest</b></span>
     </a>
     <nav class="mainnav" id="mainnav">
       <a class="navlink" data-route="home" data-i18n="nav.home"></a>
@@ -530,7 +542,21 @@ input[type=range]{accent-color:var(--a1);width:180px}
     </div>
   </div>
 </header>
-<main id="app"></main>
+<div class="site-body">
+ <aside class="ad-rail" aria-label="Advertisement left">
+  <div class="ad-box" id="adLeft">
+   <!-- LEFT AD SLOT: delete the two spans below and paste your ad code here (160x600 recommended) -->
+   <span class="ad-tag">AD SPACE</span><span class="ad-size">160 × 600</span>
+  </div>
+ </aside>
+ <main id="app"></main>
+ <aside class="ad-rail" aria-label="Advertisement right">
+  <div class="ad-box" id="adRight">
+   <!-- RIGHT AD SLOT: delete the two spans below and paste your ad code here (160x600 recommended) -->
+   <span class="ad-tag">AD SPACE</span><span class="ad-size">160 × 600</span>
+  </div>
+ </aside>
+</div>
 <footer class="site-f">
   <div class="wrap frow">
     <span data-i18n="ft.made"></span>
@@ -570,7 +596,7 @@ en:{
  'how.2t':'Practice daily','how.2d':'Type with live WPM, accuracy, sound effects and a glowing finger hint on every key.',
  'how.3t':'Play & improve','how.3d':'Beat your high scores, earn stars and badges, and watch your heatmap turn green.',
  'home.your':'Your Progress','home.best':'Best WPM','home.tests':'Tests done','home.time':'Time typed','home.min':'min','home.start':'Start a new test →',
- 'practice.m.time':'⏱ Time','practice.m.words':'📝 Words','practice.m.quote':'❝ Quote',
+ 'practice.m.time':'⏱ Time','practice.m.words':'📝 Words','practice.m.story':'📖 Story','practice.m.quote':'❝ Quote',
  'practice.diff':'Difficulty','practice.d.easy':'Easy','practice.d.med':'Medium','practice.d.hard':'Hard',
  'stat.wpm':'WPM','stat.acc':'ACCURACY','stat.time':'TIME','stat.left':'LEFT','stat.words':'WORDS','stat.combo':'COMBO',
  'practice.placeholder':'Click here, then just start typing…','practice.restart':'↺ Restart (Tab)','practice.newwords':'🎲 New words','practice.kb':'⌨ Keyboard',
@@ -618,7 +644,8 @@ en:{
 let LANG='en';
 const t=k=>(I18N[LANG]&&I18N[LANG][k])||I18N.en[k]||k;
 /* ================= WORD DATA ================= */
-const COMMON=("the be to of and a in that have it for not on with he as you do at this but his by from they we say her she or an will my one all would there their what so up out if about who get which go me when make can like time no just him know take people into year your good some could them see other than then now look only come its over think also back after use two how our work first well way even new want because any these give day most us is are was were been has had did may should must very upon while where why again against between under never always often once during before through around near above below both few many much more less own same such off keep let begin small large next early important last let long find kind light night hard land home hand life world head page school story book word part sound water room turn eye face fact far feet high close open begin end follow stop song often white children myself mountain season sky river flower garden forest window winter summer spring morning evening hello welcome practice typing keyboard quick brown fox jumps lazy dog speed accuracy rhythm focus energy power golden silver diamond crystal strong brave calm peace dream magic music dance smile happy sunny cloudy storm rain wind fire earth stone glass metal paper sugar salt lemon mango banana orange grape peach cherry tiger lion zebra horse whale shark eagle snake panda koala camel penguin dolphin butterfly spider monkey donkey rabbit turtle dragon phoenix wizard pirate castle island desert jungle treasure compass lantern hammer ladder bridge tunnel engine rocket planet galaxy comet meteor astronaut captain doctor teacher farmer singer artist writer dancer player winner champion legend future memory moment minute second hour today tomorrow yesterday always never sometimes everywhere anywhere someone everyone nobody anything everything nothing").split(/\s+/);
+const EXTRA_WORDS=("ability able absorb academic accept access accident account accuse achieve acid acoustic acquire across act action active actual adapt addition address adequate adjust admire admit adopt adult advance advantage adventure advice advise affair afford afraid afternoon against age agent agree ahead aim aircraft airline airport alarm album alcohol alive alliance allow ally almost alone along already alright although ambassador ambition ambulance among amount ancient anger angle angry animal ankle announce annual another answer antenna anxiety any apart apartment apologize apparent appear apple application apply appoint appreciate approach appropriate approve architect archive area argue argument arise arm army arrange arrest arrive arrow art article artist ascend aspect assault assemble assert assess asset assist associate assume assure athlete atmosphere attach attack attempt attend attention attitude attorney attract auction audit author autumn available average avoid awake award aware away awful baby back background bacon bad badge badly bag balance ball balloon bamboo ban banana bandage bang bank bargain barrel barrier base baseball basic basket bat bath battery battle bay beach beam bean bear beat beauty become bed bee beef beer before beg begin behave behind belief bell belong below belt bench bend beneath benefit berry beside best bet better between beyond bicycle big bike bill bin bind biology bird birth biscuit bishop bit bite bitter black blade blame blank blanket blast bleed blend bless blind block blood bloom blouse blow blue board boast boat body boil bold bolt bomb bone bonus book boot border bore borrow boss both bother bottle bottom bounce boundary bowl box brain branch brand brass brave bread break breakfast breast breath breeze brick bride bridge brief bright brilliant bring broad broadcast bronze brother brown brush bubble bucket buddy budget bug build bulb bulk bull bullet bunch bundle bunny burden burst bury bus bush business busy but butter butterfly button buy buzz cabin cable cactus cafe cake calendar call calm camel camera camp campus canal cancel candle candy cannon canoe canvas canyon capable capital captain capture car carbon card care career careful cargo carpet carrot carry cart case cash cast castle casual cat catalog catch category cathedral cattle cause caution cave cease ceiling celebrate cell cement cent center central century ceremony certain chain chair chalk challenge chamber champion chance change channel chapter character charge charity charm chart chase cheap check cheer cheese chemical chest chicken chief child chimney chin chocolate choice choir choose chop chorus church cigar circle circus citizen city civil claim clarify class classic clause clean clear clerk clever click client cliff climate climb clinic clip clock closet cloth cloud clover club clue cluster coach coal coast coat code coffee coin cold collaborate collapse collar colleague collect college colony color column combine come comfort comic command comment commerce commit common communicate community compact company compare compete compile complain complete complex comply compose compound compute concept concern concert conclude concrete condition conduct confer confess confident confirm conflict confront confuse congress connect conquer conscious consensus consent consequence conserve constant construct consult consume contact contain contemporary content contest context continue contract contrast contribute control convention conversation convert convey convince cook cookie cool cooperate coordinate copper copy coral cord core corn correct corridor cost cottage cotton couch could council counsel count counter country county couple courage court cousin cover cow coward crack craft crane crash crawl crazy cream create creature credit creek crew crime crisp critic crop cross crowd crown crucial cruel cruise crumb crush cry crystal culture cup curious curl currency current curse curtain curve cushion custom customer cut cute cycle daily dairy damage damp dance danger dare dark dash data database date daughter dawn day dead deal debate debris debt decade declare decor decrease dedicate deep deer defeat defend defer deficit define degree delay delete delicate deliver demand democracy demonstrate deny depart depend depict deploy deposit depth deputy derive descend describe desert deserve design desire desk desperate despite destination destroy detail detect determine develop device devote diagram dialogue diamond diary diet differ difficult digital dignity dilemma dimension dinner dinosaur direct dirt disagree disappear disaster discipline discount discover discuss disease dish dismiss disorder display distance distant distinct distribute district diverse divide divorce dizzy doctor document dog dolphin domain donate donkey donor door dose double doubt dough dozen draft drag dragon drain drama drastic draw drawer dream dress drift drink drive driver drop drought drown drum dry duck due dull dumb dump duplicate durable during dust duty dwarf dynamic eager eagle early earn earth easily east easy echo eclipse ecology economy edge edit education effect efficient effort egg eight either elbow elder elect electric elegant element elevate elephant elevator eligible else elsewhere embark embrace emerge emergency emission emotion emphasis empire employ empty enable enact enclose encounter encourage endless endorse endow enemy energy enforce engage engine engineer enhance enjoy enlarge enough ensure enter enterprise entertain enthusiasm entire entitle entrance entry envelope environment episode equal equip equity era erase erect error erupt escape essay essence estate estimate eternal ethics ethnic evaluate evening event eventually ever every evidence evil evoke evolve exact exam example excellent except exchange excite exclude excuse execute exercise exhaust exhibit exist exit expand expect expedition expense experience experiment expert explain explode explore export expose express extend extent external extra extreme eye fabric facility fact factor factory faculty fade fail faint fair faith fall false fame family famous fancy fantasy far fare farm fashion fast fat fate father fatigue fault favor fear feast feather feature federal fee feed feel fellow female fence festival fetch fever fiber fiction field fierce fifteen fighter figure filter final finance find fine finger finish firm fiscal fish fit five fix flag flame flash flat flavor flee flesh float flock flood floor flour flow flower fluid fly focus fog fold folk follow food fool foot football forbid force forecast forehead foreign forest forever forget fork formal format former formula fortune forward fossil foster found fountain four fraction fragile frame franchise frank fraud free freeze freight frequent fresh friend frighten frog front frost frown fruit fuel full fumble fun function fund funeral funny furnace furniture future gadget gain galaxy gallery game gap garage garbage garden garlic gasoline gate gather gauge gaze gear gender gene general generous genius gentle genuine gesture ghost giant gift gigantic ginger giraffe girl give glad glance glass glide global gloom glory glove glue goal goat gold golf gondola good gorgeous goose gospel gossip govern gown grab grace grade grain grand granite grant grape grasp grass grave gravity gray graze great greedy green greet grief grill grind grip groan grocery groom ground group grove grow guarantee guard guess guest guide guilt guitar gulf gum gut gym habit habitat hail hair half hall halo halt hammer hand handicap handle hang happen harbor hardy harm harmony harness harsh hat hatch hate haunt have hawk hazard head heal health heap hear heart heat heaven heavy hedge heel height helicopter hello helmet help hem hen herb herd here hero hesitate hide high highlight highway hill hint hip hire history hit hive hobby hold hole holiday hollow holy home honey honor hood hoof hook hopeful horizon hormone horn horrible horse hospital host hot hotel hour house household hover howl huge human humble humid humor hundred hunger hungry hunt hurdle hurry hurt husband hut hydrogen ice icon idea ideal identify idle ignore ill illegal illness image imagine imitate immense immune impact implement imply import impose impress improve impulse inch incidence include income increase indeed independent index indicate indigenous individual industry infant infect infer inform ingredient inhabit inherit initial initiative inject injury inmate inner innocent innovation input inquiry insect insert inside insight insist inspect inspire install instance instant instead instinct institute instruct instrument insult insurance intend intense intercept interest internal international interpret interrupt interval intervene interview intimate into introduce invade invent invest investigate invisible invite invoke involve iron ironic island isolate issue item ivory jacket jaguar jail jam jar jaw jazz jealous jeans jelly jewel job jog join joint joke journal journey joy judge juice jumble jump junction jungle junior jury just justice keen keep ketchup kettle key kick kid kidney kill kilogram kind kingdom kiss kit kitchen kite kitten knee kneel knife knight knit knock knot know knowledge lab label labor lace lack ladder ladle lady lagoon lake lamb lamp land landscape lane language lantern lap large laser last late laughter launch laundry lava law lawn lawyer layer lazy lead leaf league lean leap learn lease least leather leave lecture ledge left leg legacy legal legend legion lemon lend length lens leopard lesson letter lettuce level liberal library license lid lie life lift light lightning like likelihood limb lime limit line linen link lion lip liquid listen literacy litter little live lizard load loaf loan lobby lobster local locate lock loft logic lonely long look loop loose lord lotion lose loss lot loud lounge love lovely loyal luck luggage lumber lump lunar lunch lung lure luxury machine mad magazine magic magnet maid mail main maintain major make mammal man manage mandate mango mansion manual manufacture many map maple marble march margin marine mark market marriage marsh martial mask mass master match material maternal math matter maximum meadow meal mean measure meat mechanic medal media medical medicine medium meet melody melon melt member memory menace mend mental mention menu merchant mercy mere mess message metal meteor method meter middle midnight might mild mile military milk mill million mind mine mineral mingle minimum minor minute miracle mirror mischief miss missile mission mist mistake mix mixture moan mobile model modern modest modify module moist moment monarch moment money monitor monk monkey monster month mood moon moral more morning mortal mosquito moss most mother motion motor mount mountain mouse mouth move movie much mud muddle multiply mumble murder muscle museum mushroom music must mystery myth nail naive naked name napkin narrow nation native natural nature naughty naval navigate near neat necessary neck need negative neglect neighbor neither nephew nest net network neutral new newly news next nice nickel niece night nine noble nobody nod noise nominate none noodle noon normal north nose notable note nothing notice notion noun nourish novel now nowhere nuclear number nurse nursery nut nutrition obey object oblige observe obtain obvious occasion occupy occur ocean odd odor offer office officer official often oil old olive omit once one onion only onset open opera operate opinion opponent oppose option orange orbit orchard orchestra ordeal order ordinary organ organic origin ornament orphan other otherwise ounce our out outcome outdoor outer outfit outlet outline output outrage outside oval oven over overall overcome overlap overload overlook overturn owe own ox oxygen oyster pace pacific pack pad paddle pain paint pair palace pale palm pamphlet pan panda panel panic pants paper parade paragraph parallel parcel pardon parent park parrot parsley part partial partner party pass passage passenger passion pasta past patent path patience patient patrol pattern pause payment peace peach peak peanut pear pearl peasant pebble peculiar pedal peel peer penalty pencil pending penny people pepper perceive percent perfect perform perhaps period permanent permit persist person perspective pest pet petal petition petrol phantom phase phenomenon philosophy phone photo phrase physical piano picture piece pierce pigeon pigment pile pilgrim pilot pin pinch pine pink pioneer pipe pistol pit pitch pity pizza place plague plain plan plane planet plant plasma plastic plate plateau platform play pleasant please pleasure pledge plenty plot plow plug plum plumber plunge plural pocket poem poet point poison polar police policy polish polite political pollution pond pony pool poor pop popular population porch pork port portion portrait position positive possess possible post pot potato pottery poultry pound pour poverty powder power practice praise pray preach proceed precious predict prefer pregnant prepare prescribe presence present preserve president press pressure prestige pretend pretty prevail prevent previous prey price pride priest primary prime prince princess principal print prior priority prison private prize probably problem procedure process proclaim produce product profession professor profile profit profound program progress prohibit project prolong prominent promise promote prompt proof proper property prophet propose prosper protect protein protest proud prove provide province provision provoke prudent public pudding pumpkin pupil purchase pure purple purpose pursue puzzle pyramid qualify quantity quarrel quarter queen query quest question quick quiet quilt quit quite quota quotation rabbit race racial rack radar radish raft rail rainfall rainbow raise rally ranch random range rank rapid rare rascal rate rather rating rattle raw ray reach react readily real realize realm reason rebel recall receipt receive recent recipe recital reckon recognize recommend record recover recruit rectangle recycle reduce refer refine reflect reform refuge refuse regard region register regret regular rehearse reign reject relate relax release relevant relief religion reluctant rely remain remark remedy remind remote remove render renew rent repair repeat replace reply report represent request require rescue research resemble reserve reside resign resist resolve resort resource respect respond responsible rest restaurant result resume retail retain retire retreat return reveal revenge revenue reverse review revise revive revolt reward rhythm ribbon rice rich riddle ride ridge ridiculous rifle right rigid ring rinse riot ripen rise risk rival river roadside roast rob robe robot robust rock rod rogue role roll roof room rooster root rope rose rot rotate rough round rouse route routine rove row royal rub rubber ruby rude rugged ruin rule rumor run rural rush rust rut sack sacred sad saddle safety saga sail salad salmon salute sample sand sandwich sane satellite satisfaction sauce sausage savage save scale scan scandal scare scene scent schedule scheme scholar science scissors scold scoop scope score scorn scout scramble scrap scratch scream screen screw script scroll sculpture sea seal search season seat second secret section sector secure see seed seek seem segment seize seldom select self sell senate send senior sensation sense sentence separate sequence serene sergeant series serious sermon serve service session settle seven several severe sew shade shadow shaft shake shallow shame shampoo shape share shark sharp shave shawl she sheep sheet shelf shell shelter shepherd shield shift shine ship shirt shiver shock shoe shoot shop shore short shortage shoulder shout shovel show shrimp shrink shrug shut shuttle shy sick side siege sigh sight sign signal silence silent silk silo silver similar simple since sincere sing single sink sip sir siren sister sit site situation six size skate sketch ski skill skin skip skirt skull sky slate slave sled sleep sleeve slice slide slight slim sling slip slogan slope slot slow slumber small smart smash smell smile smoke smooth snack snail snake snap snare snatch sneak snow soak soap soar soccer social society sock soda sofa soft soil solar soldier sole solid solve some son song soon soothe sorrow sort soul sound soup sour source south souvenir sovereign sow space spade spare spark sparkle speak spear special species specify specimen spectacle speech spend sphere spice spider spinach spill spin spirit spit spite splendid split spoil sponge spool spoon sport spot spouse spray spread spring sprinkle sprout spur squeeze squirrel stable stadium staff stage stain stair stake stale stalk stamp stand staple star stare start starve state station status statue stature stay steady steak steal steam steel steep steer stellar stem step stereo stern stick stiff still sting stir stitch stock stomach stone stool stop storage store storm story stout stove straight strain strait strange strategy straw stream street strength stress stretch stride strike string strip stripe strive stroke stroll strong structure struggle student studio study stuff stumble stun sturdy style subject submit substance subtle suburb succeed success such sudden suffer sugar suggest suit suitable suitcase sulfur sum summer summit summon sun super supper supply support suppose supreme sure surface surgeon surplus surprise surrender surround survey survive suspect suspend sustain swallow swamp swan sway swear sweat sweater sweep sweet swell swift swim swing switch sword symbol sympathy symptom syndrome system table tablet tackle tactic tag tail talent talk tall tame tank tape target task taste tavern tax tea teach team tear tease technical technique technology tedious telescope television tell temper temple temporary tenant tend tense tent term terrain terrible territory terror testify testimony text texture than thank theme theory therapy there thermal thick thief thin thing think third thirst thirteen thirty this thorough though thought thousand thread threat thrill thrive throat throne through throughout throw thrust thumb thunder thunder ticket tide tidy tie tiger tight tile till timber time timid tiny tip tissue title toast tobacco today toe together toilet token tomato tomorrow tone tongue tonight too tool tooth top topic topple torch tornado total touch tough tour tourist tournament toward tower town toxic toy trace track tract trade tradition traffic tragedy trail train trait transaction transfer transform transit translate transport trap travel tray treasure treat treaty tree tremble tremendous trend trial triangle tribal tribe trick trigger trim trip triple triumph trolley troop trophy tropical trouble truck true truly trumpet trunk trust truth try tube twilight tumble tune tunnel turkey turmoil turn turtle twelve twenty twice twilight twin twist two type typical tyrant ugly ultimate umbrella unable uncle under undergo understand uneven unfair unfold uniform union unique unit unite universal universe unknown unless unlike until unusual update uphold upon upper upset urban urge urgent usage useful usher usual utensil utilize utter vacuum vague vain valid valley valuable value vanilla vapor variety various vast vault vector vegetable vehicle veil vein velocity velvet vendor venture venue verb verbal verdict verse version vertical very vessel veteran veto vibrant vicious victory video view vigil vigorous village vinegar vintage violate violence violet violin virtual virtue virus visible vision visit visual vital vivid vocal volcano volume volunteer vote voucher voyage wade wag wage wagon waist wait waive wake walk wall wallet wander want war ward warehouse warm warn warrant warrior wash wasp waste watch water wave wax way weak wealth weapon wear weary weather weave web wedding wedge weed week weekday weekend weep weigh weird welcome welfare wealthy west western wet whale wharf wheat wheel whenever whereas whether which while whim whisker whisper whistle white whole wholesale whom why wick wicked wide widow width wife wild wildlife will willing willow wind window wine wing wink winter wipe wire wisdom wise wish witness wolf woman wonder wood wool word work worker world worry worse worship worth wound woven wrap wreck wrestle wrist write wrong yacht yard yarn yawn year yell yellow yes yesterday yet yield young your youth zebra zero zinc zone zoo").split(/\s+/);
+const COMMON=[...new Set(("the be to of and a in that have it for not on with he as you do at this but his by from they we say her she or an will my one all would there their what so up out if about who get which go me when make can like time no just him know take people into year your good some could them see other than then now look only come its over think also back after use two how our work first well way even new want because any these give day most us is are was were been has had did may should must very upon while where why again against between under never always often once during before through around near above below both few many much more less own same such off keep let begin small large next early important last let long find kind light night hard land home hand life world head page school story book word part sound water room turn eye face fact far feet high close open begin end follow stop song often white children myself mountain season sky river flower garden forest window winter summer spring morning evening hello welcome practice typing keyboard quick brown fox jumps lazy dog speed accuracy rhythm focus energy power golden silver diamond crystal strong brave calm peace dream magic music dance smile happy sunny cloudy storm rain wind fire earth stone glass metal paper sugar salt lemon mango banana orange grape peach cherry tiger lion zebra horse whale shark eagle snake panda koala camel penguin dolphin butterfly spider monkey donkey rabbit turtle dragon phoenix wizard pirate castle island desert jungle treasure compass lantern hammer ladder bridge tunnel engine rocket planet galaxy comet meteor astronaut captain doctor teacher farmer singer artist writer dancer player winner champion legend future memory moment minute second hour today tomorrow yesterday always never sometimes everywhere anywhere someone everyone nobody anything everything nothing").split(/\s+/).concat(EXTRA_WORDS))];
 const EASY=COMMON.filter(w=>w.length<=4);
 const QUOTES=[
  {q:"The only way to do great work is to love what you do.",a:"Steve Jobs"},
@@ -634,6 +661,48 @@ const QUOTES=[
  {q:"Small daily improvements are the key to staggering long term results.",a:"Anonymous"},
  {q:"Typing is thinking at the speed of your fingers.",a:"TypeQuest"}
 ];
+const STORIES=[
+{t:"The Thirsty Crow",s:"A thirsty crow flew over a village looking for water. He found a pot with only a little water at the bottom. The crow could not reach it. Then he had an idea. He dropped small stones into the pot one by one. The water rose slowly to the top. The clever crow drank the water and flew away happily."},
+{t:"The Ant and the Dove",s:"A little ant fell into a stream and started to drown. A dove sitting on a tree saw her and dropped a leaf into the water. The ant climbed onto the leaf and reached the shore safely. Days later, a hunter aimed at the dove. The quick ant bit his foot, and the dove flew away."},
+{t:"The Boy Who Cried Wolf",s:"A shepherd boy watched sheep on a hill. Feeling bored, he cried, 'Wolf! Wolf!' The villagers ran up to help, but there was no wolf. He laughed at them. He played the same trick again. Then one day a real wolf came. He cried for help, but nobody believed him. The wolf took his sheep."},
+{t:"The Tortoise and the Hare",s:"A fast hare laughed at a slow tortoise. They agreed to race. The hare ran far ahead, then decided to sleep under a tree. The tortoise kept walking, slowly and steadily. When the hare woke up, he saw the tortoise crossing the finish line. Slow and steady wins the race."},
+{t:"The Lion and the Mouse",s:"A lion was sleeping when a little mouse ran over his paw. The lion caught the mouse in anger. 'Please let me go,' the mouse said. 'One day I may help you.' The lion laughed but set her free. Later, the lion got trapped in a net. The mouse chewed the ropes and saved him."},
+{t:"Two Friends and the Bear",s:"Two friends walked through a forest when a bear appeared. One boy quickly climbed a tree. The other lay on the ground and held his breath. The bear sniffed his ear and walked away. The boy in the tree asked, 'What did the bear tell you?' He replied, 'Never trust a friend who leaves you in danger.'"},
+{t:"The Milkmaid and Her Pail",s:"A milkmaid balanced a pail of milk on her head and walked to the market. She dreamed about the eggs she would buy, then the chicks that would grow, then the fine dress she would wear. She tossed her head with joy, and the pail fell. The milk spilled, and all her dreams disappeared."},
+{t:"The Golden Touch",s:"King Midas loved gold more than anything. A god granted his wish that everything he touched would turn to gold. At first, he was delighted. But when his food turned to gold, he could not eat. When he hugged his daughter, she turned to gold too. He wept and begged to take back the wish."},
+{t:"The Fox and the Grapes",s:"A hungry fox saw ripe grapes hanging on a high vine. He jumped again and again, but he could not reach them. At last, he gave up and walked away, saying, 'The grapes are sour anyway.' People often pretend to dislike what they cannot have."},
+{t:"The Honest Woodcutter",s:"A woodcutter dropped his axe in a river. A spirit appeared with a golden axe and asked, 'Is this yours?' 'No,' said the woodcutter. Then came a silver axe. 'No,' he said again. Finally, the spirit showed his old iron axe. 'That is mine!' The spirit rewarded his honesty with all three."},
+{t:"The Sun and the Wind",s:"The sun and the wind argued about who was stronger. They saw a man walking in a coat. The wind blew with all its power, but the man only held his coat tighter. Then the sun shone warmly. The man soon took off his coat. Kindness works better than force."},
+{t:"The Ugly Duckling",s:"A duckling looked different from his brothers and sisters. Everyone laughed at him, so he ran away. He spent a cold, lonely winter alone. In spring, he saw his reflection in a lake. He had grown into a beautiful white swan. He was never an ugly duckling at all."},
+{t:"The Bundle of Sticks",s:"An old farmer's sons always fought with each other. One day, he gave them a bundle of sticks tied with a rope. He asked each son to break it. None of them could. Then he untied the bundle and gave one stick to each. They broke them easily. Together, we are strong."},
+{t:"The Dog and the Bone",s:"A dog found a big bone and held it in his mouth. While crossing a bridge, he looked down and saw another dog with a bone in the water. It was only his reflection, but he barked to grab that bone too. His own bone fell into the river. Greedy dogs lose everything."},
+{t:"The Cap Seller and the Monkeys",s:"A cap seller slept under a tree with a basket of caps on his head. Monkeys climbed down, took the caps, and wore them. When he woke up, he shouted at the monkeys. They only copied him. Then he threw his own cap on the ground. The monkeys did the same. He collected his caps and left."},
+{t:"The Little Red Hen",s:"A little red hen found some wheat grains. She asked the cat, the dog, and the pig to help her plant them. 'Not I,' they all said. So she planted, watered, and cut the wheat alone. She baked fine bread. When they asked for a share, she said, 'Those who do not work do not eat.'"},
+{t:"The Wolf and the Crane",s:"A wolf got a bone stuck in his throat. He begged a crane to pull it out with her long beak. 'What is my reward?' asked the crane. The wolf replied, 'I did not bite your head off. Is that not enough?' Expect nothing from the wicked."},
+{t:"The Miser and His Gold",s:"A miser buried his gold under a tree in his garden. Every week, he dug it up and counted the coins. A worker noticed him and stole the gold. The miser cried loudly. A neighbor said, 'Bury a stone in its place. You never used the gold anyway.'"},
+{t:"The Magic Paintbrush",s:"A poor boy named Mali found a magic paintbrush. Whatever he painted became real. He painted food for the hungry and shoes for barefoot children. A rich man demanded the brush for himself. Mali painted a sea, a ship, and a great wind. The greedy man sailed away and was never seen again."},
+{t:"The Two Pots",s:"A clay pot and a brass pot fell into a river and floated downstream. 'Stay close to me,' said the brass pot. 'I am stronger.' The clay pot replied, 'Thank you, but your strength may break me. Let each float his own way.' The clay pot reached the bank safely by itself."},
+{t:"A Rainy Day",s:"It rained all morning. Riya wanted to go to the park, but the sky was dark. She watched the raindrops race down the window glass. Her mother made hot tea and snacks. After lunch, the rain stopped, and a rainbow appeared. Riya put on her boots and jumped in every puddle she could find."},
+{t:"The Lost Puppy",s:"On the way home from school, Sam heard a soft cry behind a bush. A small puppy sat there, wet and shaking. Sam carried it home and asked his mother to keep it. They gave it warm milk and a soft blanket. They named him Lucky. Now Lucky waits at the gate every day for Sam."},
+{t:"My First Bicycle",s:"On her birthday, Meera got a shiny blue bicycle. At first, she fell off many times. Her knees had little cuts, but she did not give up. Her father held the seat and ran beside her. One day, he let go quietly. Meera was riding all by herself. She shouted with joy all the way down the street."},
+{t:"The School Garden",s:"Our class planted a small garden behind the school. Everyone chose a different seed. I planted tomatoes. Every morning, we watered the plants and pulled out the weeds. Weeks later, tiny green leaves appeared. When the first red tomato ripened, our teacher cut it into small pieces so everyone could taste it."},
+{t:"The Night Market",s:"The night market was full of lights and noise. Vendors called out, selling fruit, toys, and hot soup. Father bought us sweet pancakes. My little sister wanted a toy rabbit, and mother smiled and bought it. We walked home slowly under the stars, carrying bags and happy hearts."},
+{t:"Grandmother's Stories",s:"Every summer, I visit my grandmother in her village. In the evening, we sit on the porch. She tells stories about her childhood, rivers, and faraway lands. Her voice is soft and slow. Sometimes I fall asleep before the story ends. In the morning, she smiles and starts a new one."},
+{t:"The Kite Festival",s:"The sky was full of kites of every color. Arjun held the string tightly while his sister ran ahead. Their kite climbed higher and higher. A strong wind pulled it close to a tree, but Arjun pulled the string at the right moment. Their kite danced above all the others until evening."},
+{t:"Helping Hands",s:"An old woman was trying to carry a heavy bag of rice up the stairs. Two students saw her and offered to help. They carried the bag to her door. She thanked them and offered them sweets. They politely refused and said, 'Helping you is sweeter than any treat.' She smiled and blessed them."},
+{t:"The Little Library",s:"Rahul kept a small box of books under the banyan tree. Anyone could borrow a book and return it later. Soon, children came every evening. Some brought their own old books to add to the box. The box became a little library, and the banyan tree became the busiest corner of the village."},
+{t:"A Visit to the Zoo",s:"We saw elephants spraying water and monkeys swinging on ropes. The parrots shouted hello to everyone. My brother loved the tall giraffes, but I liked the sleepy lions best. At noon, we ate sandwiches under a tree. A peacock suddenly spread its feathers, and everyone clapped. It was the best day of the holidays."},
+{t:"The Paper Boat",s:"After the rain, Nita made a paper boat and floated it in a stream. The boat sailed past stones and leaves. Her little brother followed it along the bank. The boat reached a small waterfall and spun around. Nita laughed and made another one. They played until the sky turned orange."},
+{t:"The Honest Taxi Driver",s:"A tourist left her phone on the taxi seat. The driver found it after his last ride. Instead of selling it, he drove back to the hotel. The tourist was overjoyed. She offered him money, but he refused with a smile. 'I only did my duty,' he said. She told everyone about the honest driver."},
+{t:"The Sleepy Cat",s:"Miso the cat slept in the kitchen all day. The cook, the cleaner, and the milkman all warned her to catch mice. But Miso only yawned. One night, a mouse ran over the cook's feet. Everyone shouted for Miso. She woke up, caught the mouse in one jump, and went back to sleep."},
+{t:"The First Snow",s:"Ben had never seen snow. One winter morning, he woke up and saw the whole town white. He wore his warmest coat and ran outside. Snowflakes landed on his nose. He made a snowman with a carrot nose and his father's old hat. Ben decided that winter was his favorite season."}
+];
+const RECENT_STORIES=[];
+function pickStory(){
+ if(RECENT_STORIES.length>=STORIES.length-1)RECENT_STORIES.length=0;
+ let idx;do{idx=ri(0,STORIES.length-1)}while(RECENT_STORIES.includes(idx));
+ RECENT_STORIES.push(idx);return STORIES[idx];
+}
 /* ================= KEYBOARD / FINGERS ================= */
 const FINGER_COLOR={l5:'#ff6b6b',l4:'#ffa94d',l3:'#ffd43b',l2:'#69db7c',th:'#adb5bd',r2:'#4dabf7',r3:'#9775fa',r4:'#da77f2',r5:'#f783ac'};
 const FINGER_KEYS={l5:'` 1 Q A Z',l4:'2 W S X',l3:'3 E D C',l2:'4 5 R T F G V B',th:'Space',r2:'6 7 Y U H J N M',r3:'8 I K ,',r4:'9 O L .',r5:'0 - = P [ ] \\ ; \' /'};
@@ -677,7 +746,7 @@ const LESSONS=[
 {id:5,ten:'G & H',keys:'fjdksla;gh',nk:['g','h'],gen:true,
  ien:'Index fingers reach inward to G and H while the other fingers stay parked on home row.'},
 {id:6,ten:'Home Row Review',keys:'asdfghjkl;',nk:null,
- words:['as','ask','all','add','sad','dad','lad','had','has','half','fall','hall','flask','glass','glad','flag','slash','gash','hash','dash','lag','sag','gag','gala','salad','alaska','shall','flash','adds','lads','shad'],
+ words:['as','ask','all','add','sad','dad','lad','had','has','half','fall','hall','flask','glass','glad','flag','slash','gash','hash','dash','lag','sag','gag','gala','salad','salsa','shall','flash','adds','lads','shad'],
  ien:'The full home row — now real English words! Focus on accuracy, not speed.'},
 {id:7,ten:'E & I — Top Row Begins',keys:'asdfghjkl;ei',nk:['e','i'],gen:false,
  words:['did','die','lie','tie','side','life','file','slide','aisle','isle','field','idea','ideas','ideal','said','lid','fig','figs','sigh','high','hill','fill','sail','fail','self','elf','shelf','fife','kid','kiss','skills','files','aides','aside','sides','deli','dial','lied','faded','edge'],
@@ -948,16 +1017,31 @@ function weakWords(){
  const out=[];for(let i=0;i<40;i++)out.push(matches.length&&Math.random()<.75?pick(matches):inject(pick(COMMON),pick(weak)));
  return out;
 }
+const RECENT_WORDS=[];const RECENT_SET=new Set();
+function rememberWords(ws){for(const w of ws){if(!RECENT_SET.has(w)){RECENT_WORDS.push(w);RECENT_SET.add(w)}}
+ while(RECENT_WORDS.length>500)RECENT_SET.delete(RECENT_WORDS.shift())}
+function freshSrc(diff){
+ const pool=diff==='easy'?EASY:COMMON;
+ const fresh=pool.filter(w=>!RECENT_SET.has(w));
+ return fresh.length>=30?fresh:pool;
+}
+function drawWords(n,diff){
+ let src=shuffle(freshSrc(diff));const out=[];let guard=0;
+ while(out.length<n&&guard++<300){
+  for(const w of src){if(out.length>=n)break;out.push(w)}
+  if(out.length<n)src=shuffle(src);
+ }
+ for(let i=1;i<out.length;i++){if(out[i]===out[i-1]){const alt=src.find(x=>x!==out[i-1]&&x!==out[i]);if(alt)out[i]=alt}}
+ return out;
+}
 function genWords(n,diff){
- const src=diff==='easy'?EASY:COMMON;const out=[];
- if(diff==='hard'){
-  for(let i=0;i<n;i++){let w=pick(src);
-   if(Math.random()<.32)w=w[0].toUpperCase()+w.slice(1);
-   if(Math.random()<.16)w+=pick([',','.','!',';','?']);
-   if(Math.random()<.07)w=pick(['(','"',"'",'-'])+w+pick([')', '"', '.', ',']);
-   out.push(w)}
-  return out}
- for(let i=0;i<n;i++)out.push(pick(src));return out;
+ const out=drawWords(n,diff);
+ rememberWords(out.slice(0,Math.min(n,150)));
+ if(diff==='hard'){return out.map(w=>{let x=w;
+  if(Math.random()<.16)x+=pick([',','.','!',';','?']);
+  if(Math.random()<.07)x=pick(['(','"',"'",'-'])+x+pick([')','"','.',',']);
+  return x})}
+ return out;
 }
 </script>
 
@@ -1302,7 +1386,7 @@ function TypingTest(opts){
    </div>
    ${samplesChart(res.samples)?`<div class="res-chart"><div class="cl">${esc(t('r.chart'))}</div>${samplesChart(res.samples)}</div>`:''}
    ${weak.length?`<div class="res-keys"><span class="muted" style="font-size:13px;font-weight:700">${esc(t('r.weak'))}:</span>${weak.map(w=>`<span class="keycap bad">${esc(w.k.toUpperCase())}·${Math.round(w.acc*100)}%</span>`).join('')}</div>`:''}
-   ${res.meta&&res.meta.author?`<p class="muted" style="text-align:center;font-size:13px;margin-top:8px">${esc(t('r.by'))} ${esc(res.meta.author)}</p>`:''}
+   ${res.meta&&res.meta.author?`<p class="muted" style="text-align:center;font-size:13px;margin-top:8px">${esc(res.meta.author)}</p>`:''}
    <div class="res-actions">
     <button class="btn primary" data-act="again">${esc(t('r.again'))}</button>
     <button class="btn ghost" data-act="new">${esc(t('r.new'))}</button>
@@ -1349,7 +1433,7 @@ function TypingTest(opts){
 'use strict';
 /* ================= PRACTICE VIEW ================= */
 Views.practice=(params)=>{
- const state={mode:'time',subTime:30,subWords:25,diff:'med',weak:!!(params&&params.weak)};
+ const state={mode:'story',subTime:30,subWords:25,diff:'med',weak:!!(params&&params.weak)};
  if(state.weak&&!weakWords())state.weak=false;
  const v=el('div');
  v.innerHTML=`<div class="wrap section" style="padding-top:26px">
@@ -1358,21 +1442,22 @@ Views.practice=(params)=>{
   <div id="thost"></div>
  </div>`;
  const modebar=v.querySelector('#modebar'),host=v.querySelector('#thost');
- let tt=null,quoteAuthor=null;
+ let tt=null,quoteAuthor=null,storyTitle=null;
  const sub=()=>state.mode==='time'?state.subTime:state.subWords;
- const label=()=>state.weak?'weak':state.mode==='time'?'time'+state.subTime:state.mode==='words'?'words'+state.subWords:'quote';
+ const label=()=>state.weak?'weak':state.mode==='time'?'time'+state.subTime:state.mode==='words'?'words'+state.subWords:state.mode==='quote'?'quote':'story';
  function makeWords(){
-  if(state.weak){const w=weakWords();if(w){quoteAuthor=null;return w}}
-  if(state.mode==='quote'){const q=pick(QUOTES);quoteAuthor=q.a;return q.q.split(' ')}
-  quoteAuthor=null;
+  if(state.weak){const w=weakWords();if(w){quoteAuthor=null;storyTitle=null;return w}}
+  if(state.mode==='story'){const st=pickStory();quoteAuthor=null;storyTitle=st.t;return st.s.toLowerCase().split(/\s+/)}
+  if(state.mode==='quote'){const q=pick(QUOTES);quoteAuthor=q.a;storyTitle=null;return q.q.toLowerCase().split(' ')}
+  quoteAuthor=null;storyTitle=null;
   return genWords(state.mode==='time'?220:sub(),state.diff);
  }
  function createTT(){
   tt=TypingTest({
-   words:makeWords(),mode:state.weak?'words':state.mode,timeLimit:state.subTime,
-   liveStats:true,showProgress:false,label:label(),
+   words:makeWords(),mode:(state.weak||state.mode==='story')?'words':state.mode,timeLimit:state.subTime,
+   liveStats:true,showProgress:state.mode==='story',label:label(),
    genWords:makeWords,genMore:()=>genWords(80,state.diff),
-   meta:()=>({author:quoteAuthor}),
+   meta:()=>({author:quoteAuthor?'— '+quoteAuthor:(storyTitle?'📖 '+storyTitle:null)}),
    onFinish:res=>({pb:saveTest(res,label())})
   });
   host.appendChild(tt.el);
@@ -1384,10 +1469,10 @@ Views.practice=(params)=>{
    modebar.appendChild(chip('🎯 '+t('practice.weak'),true,()=>{state.weak=false;refresh()}));
    return;
   }
-  [['time','practice.m.time'],['words','practice.m.words'],['quote','practice.m.quote']].forEach(([m,k])=>{
+  [['story','practice.m.story'],['time','practice.m.time'],['words','practice.m.words'],['quote','practice.m.quote']].forEach(([m,k])=>{
    modebar.appendChild(chip(t(k),state.mode===m,()=>{state.mode=m;refresh()}));
   });
-  if(state.mode!=='quote'){
+  if(state.mode!=='quote'&&state.mode!=='story'){
    modebar.appendChild(el('span','sep'));
    if(state.mode==='time')[15,30,60,120].forEach(n=>modebar.appendChild(chip(n+'s',state.subTime===n,()=>{state.subTime=n;refresh()})));
    else [10,25,50,100].forEach(n=>modebar.appendChild(chip(n,state.subWords===n,()=>{state.subWords=n;refresh()})));
