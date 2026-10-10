@@ -394,9 +394,8 @@ html[data-theme="light"] .gridfx{opacity:.6}
 .gmeta{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 .gbest{font-size:13px;font-weight:700;color:var(--muted)}
 .gbest b{font-family:var(--mono);color:var(--a2);font-size:16px}
-.game-shell{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#050310;
-  margin:0 auto;width:-moz-fit-content;width:fit-content;max-width:100%}
-.gcanvas{display:block;margin:0 auto;aspect-ratio:9/16;height:min(76vh,700px);width:auto;max-width:100%;outline:none}
+.game-shell{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#050310}
+.gcanvas{display:block;width:100%;height:560px;outline:none}
 .ginput{position:absolute;opacity:0;left:-9999px;top:0;width:10px;height:10px}
 .hud{position:absolute;top:10px;left:10px;right:10px;display:flex;gap:8px;flex-wrap:wrap;pointer-events:none;z-index:4}
 .hbox{background:color-mix(in srgb,#05030d 65%,transparent);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
@@ -416,7 +415,7 @@ html[data-theme="light"] .gridfx{opacity:.6}
   background:linear-gradient(135deg,var(--a2),var(--a1));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .ov-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}
 .banner{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;z-index:5}
-.banner span{font-size:34px;font-weight:900;letter-spacing:1px;
+.banner span{font-size:44px;font-weight:900;letter-spacing:1px;
   background:linear-gradient(135deg,var(--a1),var(--a2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
   text-shadow:none;animation:bannerPop 1.3s ease forwards}
 @keyframes bannerPop{0%{opacity:0;transform:scale(.4)}18%{opacity:1;transform:scale(1.12)}30%{transform:scale(1)}75%{opacity:1}100%{opacity:0;transform:scale(1.05) translateY(-18px)}}
@@ -500,7 +499,7 @@ input[type=range]{accent-color:var(--a1);width:180px}
   .tips-list{grid-template-columns:1fr}
   .heatmap{grid-template-columns:repeat(7,1fr)}
   .game-grid{grid-template-columns:1fr}
-  .gcanvas{height:min(70vh,620px)}
+  .gcanvas{height:480px}
 }
 @media(max-width:560px){
   .feature-grid,.how-grid,.lesson-grid,.theme-grid{grid-template-columns:1fr}
@@ -513,7 +512,7 @@ input[type=range]{accent-color:var(--a1);width:180px}
   .words-viewport{height:99px}
   .key{height:40px;font-size:12px}
   .key .sh{height:9px;font-size:8px}
-  .gcanvas{height:min(62vh,560px)}
+  .gcanvas{height:420px}
   .hero{padding-top:40px}
 }
 @media(prefers-reduced-motion:reduce){
@@ -1791,7 +1790,7 @@ Views.rain=()=>{
  function initStars(){stars=[];for(let i=0;i<70;i++)stars.push({x:Math.random()*W,y:Math.random()*H,s:Math.random()*1.6+.3,v:rnd(6,20)})}
  function pool(){if(level<3)return EASY.filter(w=>w.length>=3);if(level<7)return COMMON.filter(w=>w.length>=4&&w.length<=6);return COMMON.filter(w=>w.length>=5&&w.length<=8)}
  function spawn(){c.font='700 21px ui-monospace,Consolas,monospace';const txt=pick(pool());const tw=c.measureText(txt).width;
-  words.push({text:txt,x:rnd(14,Math.max(16,W-14-tw)),y:92,vy:(26+level*11)*(H/460),tw,fade:0})}
+  words.push({text:txt,x:rnd(14,Math.max(16,W-14-tw)),y:76,vy:(26+level*11)*(H/460),tw,fade:0})}
  function updHud(){q('#hS').textContent=score;q('#hL').textContent=level;q('#hC').textContent=combo||'0';q('#hH').textContent='❤️'.repeat(Math.max(0,lives))+'🖤'.repeat(Math.max(0,3-lives))}
  function banner(txt){const b=q('#hB');b.style.display='grid';b.querySelector('span').textContent=txt;clearTimeout(bannerT);bannerT=setTimeout(()=>b.style.display='none',1250)}
  function burst(x,y,col,n){for(let i=0;i<(n||16);i++){const a=Math.random()*Math.PI*2,s=rnd(1,4);parts.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-1,g:.12,life:rnd(20,40),t:0,sz:rnd(1.5,3.5),col})}}
@@ -1927,7 +1926,7 @@ Views.defense=()=>{
   if(boss){txt=pick(COMMON.filter(w=>w.length>=9))||'typewriter';bossActive=true}
   else txt=pick(pool());
   const sz=boss?52:30;
-  enemies.push({text:txt,x:rnd(40,Math.max(50,W-40)),y:88,vy:boss?(16+wave*2)*(H/460):(26+wave*8)*(H/460),emoji:boss?'🐲':pick(ALIENS),sz,boss,fade:0});
+  enemies.push({text:txt,x:rnd(40,Math.max(50,W-40)),y:72,vy:boss?(16+wave*2)*(H/460):(26+wave*8)*(H/460),emoji:boss?'🐲':pick(ALIENS),sz,boss,fade:0});
  }
  function updHud(){q('#hS').textContent=score;q('#hL').textContent=wave;q('#hC').textContent=combo||'0';q('#hH').textContent='❤️'.repeat(Math.max(0,lives))+'🖤'.repeat(Math.max(0,3-lives))}
  function banner(txt){const b=q('#hB');b.style.display='grid';b.querySelector('span').textContent=txt;clearTimeout(bannerT);bannerT=setTimeout(()=>b.style.display='none',1250)}
