@@ -607,18 +607,18 @@ const EXTRA_WORDS=("ability able absorb academic accept access accident account 
 const COMMON=[...new Set(("the be to of and a in that have it for not on with he as you do at this but his by from they we say her she or an will my one all would there their what so up out if about who get which go me when make can like time no just him know take people into year your good some could them see other than then now look only come its over think also back after use two how our work first well way even new want because any these give day most us is are was were been has had did may should must very upon while where why again against between under never always often once during before through around near above below both few many much more less own same such off keep let begin small large next early important last let long find kind light night hard land home hand life world head page school story book word part sound water room turn eye face fact far feet high close open begin end follow stop song often white children myself mountain season sky river flower garden forest window winter summer spring morning evening hello welcome practice typing keyboard quick brown fox jumps lazy dog speed accuracy rhythm focus energy power golden silver diamond crystal strong brave calm peace dream magic music dance smile happy sunny cloudy storm rain wind fire earth stone glass metal paper sugar salt lemon mango banana orange grape peach cherry tiger lion zebra horse whale shark eagle snake panda koala camel penguin dolphin butterfly spider monkey donkey rabbit turtle dragon phoenix wizard pirate castle island desert jungle treasure compass lantern hammer ladder bridge tunnel engine rocket planet galaxy comet meteor astronaut captain doctor teacher farmer singer artist writer dancer player winner champion legend future memory moment minute second hour today tomorrow yesterday always never sometimes everywhere anywhere someone everyone nobody anything everything nothing").split(/\s+/).concat(EXTRA_WORDS))];
 const EASY=COMMON.filter(w=>w.length<=4);
 const QUOTES=[
- {q:"The only way to do great work is to love what you do.",a:"Steve Jobs"},
- {q:"In the middle of difficulty lies opportunity.",a:"Albert Einstein"},
- {q:"Simplicity is the ultimate sophistication.",a:"Leonardo da Vinci"},
- {q:"It always seems impossible until it is done.",a:"Nelson Mandela"},
- {q:"The best way to predict the future is to create it.",a:"Peter Drucker"},
- {q:"Fall seven times, stand up eight.",a:"Japanese Proverb"},
- {q:"Speed comes with accuracy, never before it.",a:"TypeQuest"},
- {q:"Stay hungry, stay foolish.",a:"Steve Jobs"},
- {q:"Practice makes progress, not perfection.",a:"Anonymous"},
- {q:"The quick brown fox jumps over the lazy dog while the cat watches.",a:"TypeQuest"},
- {q:"Small daily improvements are the key to staggering long term results.",a:"Anonymous"},
- {q:"Typing is thinking at the speed of your fingers.",a:"TypeQuest"}
+ {q:"The journey of 1000 miles begins with a single step - so start today!",a:"Lao Tzu"},
+ {q:"I have not failed. I've found 10,000 ways that won't work.",a:"Thomas Edison"},
+ {q:"In the middle of difficulty lies opportunity (about 90% of the time).",a:"Albert Einstein"},
+ {q:"Stay hungry, stay foolish - question everything, 24 hours a day!",a:"Steve Jobs"},
+ {q:"The best time to plant a tree was 20 years ago; the 2nd best time is now.",a:"Chinese Proverb"},
+ {q:"Whether you think you can, or you think you can't - you're right, 100%!",a:"Henry Ford"},
+ {q:"It always seems impossible until it's done; it took 27 years, but it happened!",a:"Nelson Mandela"},
+ {q:"3 things matter most: health, time & love - guard all 3!",a:"Anonymous"},
+ {q:"Simplicity is the ultimate sophistication (rule #1 of good design).",a:"Leonardo da Vinci"},
+ {q:"Don't count the days; make the days count - 1 at a time!",a:"Muhammad Ali"},
+ {q:"The pen is mightier than the sword - 1 idea can change 1000 minds.",a:"Edward Bulwer-Lytton"},
+ {q:"Fall 7 times, stand up 8 - that's the spirit of life!",a:"Japanese Proverb"},
 ];
 const STORIES=[
 {t:"The Thirsty Crow",s:"A thirsty crow flew over a village looking for water. He found a pot with only a little water at the bottom. The crow could not reach it. Then he had an idea. He dropped small stones into the pot one by one. The water rose slowly to the top. The clever crow drank the water and flew away happily."},
@@ -1406,7 +1406,7 @@ Views.practice=(params)=>{
  const label=()=>state.weak?'weak':state.mode==='time'?'time'+state.subTime:state.mode==='words'?'words'+state.subWords:state.mode==='quote'?'quote':'story';
  function makeWords(){
   if(state.weak){const w=weakWords();if(w){quoteAuthor=null;storyTitle=null;return w}}
-  if(state.mode==='story'){const st=pickStory();quoteAuthor=null;storyTitle=st.t;return st.s.toLowerCase().split(/\s+/)}
+  if(state.mode==='story'){const st=pickStory();quoteAuthor=null;storyTitle=st.t;return st.s.toLowerCase().replace(/[^a-z\s]/g,'').split(/\s+/).filter(Boolean)}
   if(state.mode==='quote'){const q=pick(QUOTES);quoteAuthor=q.a;storyTitle=null;return q.q.toLowerCase().split(' ')}
   quoteAuthor=null;storyTitle=null;
   return genWords(state.mode==='time'?220:sub(),state.diff);
@@ -1737,7 +1737,7 @@ Views.rain=()=>{
  let W=300,H=440;
  function resize(){const dp=window.devicePixelRatio||1;const r=cv.getBoundingClientRect();W=Math.max(200,r.width);H=Math.max(200,r.height);cv.width=W*dp;cv.height=H*dp;c.setTransform(dp,0,0,dp,0,0)}
  let words=[],parts=[],stars=[],bullets=[],rings=[],lock=null,running=false,paused=false,over=false,raf=0,last=0;
- let spawnT=1,score=0,lives=3,level=1,combo=0,typedCount=0,buffer='',flashT=0,bannerT=null,bt=0,activeT=0,keysT=0,hitsT=0,statT=0;
+ let spawnT=1,score=0,lives=3,level=1,combo=0,typedCount=0,buffer='',flashT=0,bannerT=null,bt=0,activeT=0,keysT=0,hitsT=0,statT=0,brk=0,brkB=false;
  const q=id=>shell.querySelector(id);
  function initStars(){stars=[];for(let i=0;i<70;i++)stars.push({x:Math.random()*W,y:Math.random()*H,s:Math.random()*1.6+.3,v:rnd(6,20)})}
  function pool(){if(level<3)return EASY.filter(w=>w.length>=3);if(level<7)return COMMON.filter(w=>w.length>=4&&w.length<=6);return COMMON.filter(w=>w.length>=5&&w.length<=8)}
@@ -1746,7 +1746,7 @@ Views.rain=()=>{
  function updHud(){q('#hS').textContent=score;q('#hL').textContent=level;q('#hC').textContent=combo||'0';q('#hH').textContent='❤️'.repeat(Math.max(0,lives))+'🖤'.repeat(Math.max(0,3-lives))}
  function banner(txt){const b=q('#hB');b.style.display='grid';b.querySelector('span').textContent=txt;clearTimeout(bannerT);bannerT=setTimeout(()=>b.style.display='none',1250)}
  function burst(x,y,col,n){for(let i=0;i<(n||16);i++){const a=Math.random()*Math.PI*2,s=rnd(1,4);parts.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-1,g:.12,life:rnd(20,40),t:0,sz:rnd(1.5,3.5),col})}}
- function onChars(str){for(const ch of str){if(!running||paused||over)continue;if(ch===' ')continue;keysT++;
+ function onChars(str){for(const ch of str){if(!running||paused||over||brk>0)continue;if(ch===' ')continue;keysT++;
   let tg=lock;
   if(!tg){let best=null;for(const w of words)if(w.text[0]===ch){if(!best||w.y>best.y)best=w}tg=best}
   if(!tg||!tg.text.startsWith(buffer+ch))continue;
@@ -1756,9 +1756,7 @@ Views.rain=()=>{
  function complete(w){words=words.filter(x=>x!==w);typedCount++;combo++;score+=w.text.length*10+combo*2;
   burst(w.x+w.tw/2,w.y,themeCol().a2,18);rings.push({x:w.x+w.tw/2,y:w.y-4,t:0,max:36});Sound.ok();if(combo%10===0)Sound.combo();
   if(combo>0&&combo%25===0)Sound.combo();buffer='';lock=null;
-  if(typedCount%12===0){level=Math.min(12,level+1);Sound.levelup();
-   banner('LEVEL '+(level-1)+' COMPLETE!');
-   setTimeout(()=>{if(running&&!over)banner('LEVEL '+level+' ⚡')},1400)}
+  if(typedCount%12===0){level=Math.min(12,level+1);Sound.levelup();banner('LEVEL '+(level-1)+' COMPLETE!');brk=7;brkB=false}
   updHud()}
  function onBack(){if(!buffer)return;buffer=buffer.slice(0,-1);if(!buffer)lock=null;Sound.key(true)}
  function miss(w){words=words.filter(x=>x!==w);if(w===lock){lock=null;buffer=''}lives--;combo=0;flashT=1;Sound.boom();shakeEl(shell);
@@ -1768,14 +1766,15 @@ Views.rain=()=>{
   if(score>s.best){s.best=score;nb=true}Store.save();gameAch(score);
   q('#oSc').textContent=score;q('#oB').textContent=s.best;q('#oNB').style.display=nb?'':'none';
   q('#ovO').classList.add('show');if(nb){FX.confetti();Sound.fanfare()}}
- function start(){words=[];parts=[];bullets=[];rings=[];lock=null;buffer='';score=0;lives=3;level=1;combo=0;typedCount=0;spawnT=1;flashT=0;activeT=0;keysT=0;hitsT=0;statT=0;q('#hW').textContent='0';q('#hA').textContent='100%';
+ function start(){words=[];parts=[];bullets=[];rings=[];lock=null;buffer='';score=0;lives=3;level=1;combo=0;typedCount=0;spawnT=1;flashT=0;activeT=0;brk=0;brkB=false;keysT=0;hitsT=0;statT=0;q('#hW').textContent='0';q('#hA').textContent='100%';
   resize();initStars();updHud();q('#ovS').classList.remove('show');q('#ovO').classList.remove('show');q('#ovP').classList.remove('show');
   over=false;paused=false;running=true;last=performance.now();cancelAnimationFrame(raf);raf=requestAnimationFrame(frame);gi.focus()}
  function togglePause(){if(!running||over)return;paused=!paused;q('#ovP').classList.toggle('show',paused);if(!paused){last=performance.now();gi.focus()}}
  function update(dt){
-  spawnT-=dt;if(spawnT<=0){spawn();spawnT=Math.max(.45,2.2-level*.22)}
+  if(brk>0){brk-=dt;if(brk<=1.4&&!brkB){brkB=true;banner('LEVEL '+level+' ⚡')}}
+  else{spawnT-=dt;if(spawnT<=0){spawn();spawnT=Math.max(.45,2.2-level*.22)}}
   const ground=H-52;
-  for(const w of [...words]){w.y+=w.vy*dt;w.fade=Math.min(1,w.fade+dt*2.4);if(w.y>ground-12)miss(w)}
+  if(brk<=0)for(const w of [...words]){w.y+=w.vy*dt;w.fade=Math.min(1,w.fade+dt*2.4);if(w.y>ground-12)miss(w)}
   for(const s of stars){s.y+=s.v*dt*.4;if(s.y>H)s.y=-2}
   bullets=bullets.filter(b=>(b.t+=dt)<.09);
   rings=rings.filter(r=>(r.t+=dt)<.4);
@@ -1867,7 +1866,7 @@ Views.defense=()=>{
  let W=300,H=440;
  function resize(){const dp=window.devicePixelRatio||1;const r=cv.getBoundingClientRect();W=Math.max(200,r.width);H=Math.max(200,r.height);cv.width=W*dp;cv.height=H*dp;c.setTransform(dp,0,0,dp,0,0)}
  let enemies=[],parts=[],lasers=[],stars=[],bullets=[],rings=[],lock=null,running=false,paused=false,over=false,raf=0,last=0;
- let spawnT=1,score=0,lives=3,wave=1,kills=0,combo=0,buffer='',flashT=0,bannerT=null,bt=0,bossActive=false,activeT=0,keysT=0,hitsT=0,statT=0;
+ let spawnT=1,score=0,lives=3,wave=1,kills=0,combo=0,buffer='',flashT=0,bannerT=null,bt=0,bossActive=false,activeT=0,keysT=0,hitsT=0,statT=0,brk=0,brkB=false;
  const q=id=>shell.querySelector(id);
  const ALIENS=['👾','👽','🛸','👿','🤖'];
  function initStars(){stars=[];for(let i=0;i<80;i++)stars.push({x:Math.random()*W,y:Math.random()*H,s:Math.random()*1.6+.3,v:rnd(8,26)})}
@@ -1883,7 +1882,7 @@ Views.defense=()=>{
  function updHud(){q('#hS').textContent=score;q('#hL').textContent=wave;q('#hC').textContent=combo||'0';q('#hH').textContent='❤️'.repeat(Math.max(0,lives))+'🖤'.repeat(Math.max(0,3-lives))}
  function banner(txt){const b=q('#hB');b.style.display='grid';b.querySelector('span').textContent=txt;clearTimeout(bannerT);bannerT=setTimeout(()=>b.style.display='none',1250)}
  function burst(x,y,col,n){for(let i=0;i<(n||16);i++){const a=Math.random()*Math.PI*2,s=rnd(1,4.5);parts.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-1,g:.1,life:rnd(20,44),t:0,sz:rnd(1.5,4),col})}}
- function onChars(str){for(const ch of str){if(!running||paused||over)continue;if(ch===' ')continue;keysT++;
+ function onChars(str){for(const ch of str){if(!running||paused||over||brk>0)continue;if(ch===' ')continue;keysT++;
   let tg=lock;
   if(!tg){let best=null;for(const e of enemies)if(e.text[0]===ch){if(!best||e.y>best.y)best=e}tg=best}
   if(!tg||!tg.text.startsWith(buffer+ch))continue;
@@ -1903,9 +1902,7 @@ Views.defense=()=>{
   Sound.shoot();setTimeout(()=>Sound.boom(),60);
   if(combo%10===0)Sound.combo();
   buffer='';lock=null;
-  if(kills%8===0){wave++;Sound.levelup();
-   banner('WAVE '+(wave-1)+' COMPLETE!');
-   setTimeout(()=>{if(running&&!over)banner('WAVE '+wave+(wave%5===0?' · '+t('gm.boss'):' ⚡'))},1400)}
+  if(kills%8===0){wave++;Sound.levelup();banner('WAVE '+(wave-1)+' COMPLETE!');brk=7;brkB=false}
   updHud();
  }
  function onBack(){if(!buffer)return;buffer=buffer.slice(0,-1);if(!buffer)lock=null;Sound.key(true)}
@@ -1916,14 +1913,15 @@ Views.defense=()=>{
   if(score>s.best){s.best=score;nb=true}Store.save();gameAch(score);
   q('#oSc').textContent=score;q('#oB').textContent=s.best;q('#oNB').style.display=nb?'':'none';
   q('#ovO').classList.add('show');if(nb){FX.confetti();Sound.fanfare()}}
- function start(){enemies=[];parts=[];lasers=[];bullets=[];rings=[];lock=null;buffer='';score=0;lives=3;wave=1;kills=0;combo=0;spawnT=1;flashT=0;bossActive=false;activeT=0;keysT=0;hitsT=0;statT=0;q('#hW').textContent='0';q('#hA').textContent='100%';
+ function start(){enemies=[];parts=[];lasers=[];bullets=[];rings=[];lock=null;buffer='';score=0;lives=3;wave=1;kills=0;combo=0;spawnT=1;flashT=0;bossActive=false;activeT=0;brk=0;brkB=false;keysT=0;hitsT=0;statT=0;q('#hW').textContent='0';q('#hA').textContent='100%';
   resize();initStars();updHud();q('#ovS').classList.remove('show');q('#ovO').classList.remove('show');q('#ovP').classList.remove('show');
   over=false;paused=false;running=true;last=performance.now();cancelAnimationFrame(raf);raf=requestAnimationFrame(frame);gi.focus()}
  function togglePause(){if(!running||over)return;paused=!paused;q('#ovP').classList.toggle('show',paused);if(!paused){last=performance.now();gi.focus()}}
  function update(dt){
-  spawnT-=dt;if(spawnT<=0){spawn();spawnT=Math.max(.55,2.5-wave*.24)}
+  if(brk>0){brk-=dt;if(brk<=1.4&&!brkB){brkB=true;banner('WAVE '+wave+(wave%5===0?' · '+t('gm.boss'):' ⚡'))}}
+  else{spawnT-=dt;if(spawnT<=0){spawn();spawnT=Math.max(.55,2.5-wave*.24)}}
   const line=H-95;
-  for(const e of [...enemies]){e.y+=e.vy*dt;e.fade=Math.min(1,e.fade+dt*2.4);if(e.y>line)miss(e)}
+  if(brk<=0)for(const e of [...enemies]){e.y+=e.vy*dt;e.fade=Math.min(1,e.fade+dt*2.4);if(e.y>line)miss(e)}
   for(const s of stars){s.y+=s.v*dt*.5;if(s.y>H)s.y=-2}
   lasers=lasers.filter(l=>(l.t+=dt)<.14);
   bullets=bullets.filter(b=>(b.t+=dt)<.09);
