@@ -191,6 +191,15 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
 .scard .sl{color:var(--muted);font-size:12.5px;font-weight:600;margin-top:2px}
 
 /* ============ PRACTICE / TYPING ============ */
+.kb-hi .key .main,.kb-hi .key .sh{font-family:'Noto Sans Devanagari','Nirmala UI','Mangal',sans-serif}
+.kb-hi .key .main{font-size:15px}
+.tt-hi .words{font-family:'Noto Sans Devanagari','Nirmala UI','Mangal',sans-serif;font-size:25px}
+.abc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:8px}
+.abc{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 6px 8px;border-radius:12px;background:var(--card);border:1px solid var(--line);cursor:pointer;transition:.15s;color:var(--text)}
+.abc:hover{border-color:var(--a2);transform:translateY(-2px)}
+.abc .ac{font-size:24px;font-weight:700;line-height:1.2}
+.abc .ak{font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--card2);padding:2px 8px;border-radius:6px;white-space:nowrap}
+.abc-sec{font-size:13px;font-weight:800;color:var(--a2);margin:14px 0 8px;letter-spacing:.4px}
 .modebar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;margin-bottom:18px}
 .modebar .sep{width:1px;height:22px;background:var(--line);margin:0 4px}
 .statsbar{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:640px;margin:0 auto 18px}
@@ -491,6 +500,7 @@ input[type=range]{accent-color:var(--a1);width:180px}
       <a class="navlink" data-route="practice" data-i18n="nav.practice"></a>
       <a class="navlink" data-route="lessons" data-i18n="nav.lessons"></a>
       <a class="navlink" data-route="games" data-i18n="nav.games"></a>
+      <a class="navlink" data-route="hindi" data-i18n="nav.hindi"></a>
       <a class="navlink" data-route="guide" data-i18n="nav.guide"></a>
       <a class="navlink" data-route="stats" data-i18n="nav.stats"></a>
       <a class="navlink" data-route="settings" data-i18n="nav.settings"></a>
@@ -542,7 +552,7 @@ const fmt1=n=>(Math.round(n*10)/10).toFixed(1).replace(/\.0$/,'');
 /* ================= I18N ================= */
 const I18N={
 en:{
- 'nav.home':'Home','nav.practice':'Practice','nav.lessons':'Lessons','nav.games':'Games','nav.guide':'Finger Guide','nav.stats':'Stats','nav.settings':'Settings',
+ 'nav.home':'Home','nav.practice':'Practice','nav.lessons':'Lessons','nav.games':'Games','nav.hindi':'Hindi Typing','nav.guide':'Finger Guide','nav.stats':'Stats','nav.settings':'Settings',
  'hero.desc':'Learn touch typing with interactive lessons, arcade games, live finger guidance, themes and sound effects — all in one place.',
  'hero.cta1':'⌨️ Start Practicing','hero.cta2':'🎮 Play Games','hero.cta3':'👆 Learn the Basics',
  'feat.lessons.t':'Step-by-step Lessons','feat.lessons.d':'18 lessons from home row to punctuation, with live finger guidance and stars.',
@@ -550,6 +560,8 @@ en:{
  'feat.guide.t':'Finger Guide','feat.guide.d':'See exactly which finger presses which key, with color-coded hands.',
  'feat.stats.t':'Smart Stats','feat.stats.d':'WPM history, per-key heatmap and weak-key practice.',
  'feat.themes.t':'6 Cool Themes','feat.themes.d':'Synthwave, Dracula, Matrix, Nord, Sunset & Light — your vibe, your choice.','feat.design.t':'Pro 3D Design','feat.design.d':'One polished theme with real depth — glass panels, 3D keycaps and a perspective grid.',
+'feat.hindi.t':'Hindi Typing','feat.hindi.d':'Type Hindi too — InScript keyboard lessons, easy words, 22 stories and a full finger guide.',
+'hi.title':'Hindi Typing','hi.sub':'Learn to type Hindi with the standard InScript keyboard — letters, easy words and stories.','hi.m.letters':'Letters','hi.m.words':'Easy Words','hi.m.story':'Story','hi.abct':'Learn the Alphabet','hi.abcd':'Every Devanagari letter with its InScript key. Left hand = vowels & matras, right hand = consonants. Click a letter to practice it!','hi.guideT':'InScript Finger Guide','hi.guideD':'Same fingers as your English keyboard. Left hand types vowels and matras, right hand types consonants. The next key glows while you practice.','hi.tapLetter':'Practice this letter',
  'feat.ach.t':'Achievements','feat.ach.d':'Unlock badges as you improve. Can you collect them all?',
  'how.title':'How it works','how.1t':'Learn the keys','how.1d':'Place your fingers on the home row. The F and J bumps guide you — no looking down!',
  'how.2t':'Practice daily','how.2d':'Type with live WPM, accuracy, sound effects and a glowing finger hint on every key.',
@@ -678,6 +690,68 @@ const KB_ROWS=[
  [{n:'Shift',id:'shift-l',w:2.3,f:'l5'},'z','x','c','v','b','n','m',[',','<'],['.','>'],['/','?'],{n:'Shift',id:'shift-r',w:2.3,f:'r5'}],
  [{n:'Space',id:'space',w:10,f:'th'}]
 ];
+
+/* ================= HINDI (InScript) ================= */
+const HI_LAYOUT={'`':['ॊ','ऒ'],'1':['१','ऍ'],'2':['२','ॅ'],'3':['३','्र'],'4':['४','र्'],'5':['५','ज्ञ'],'6':['६','त्र'],'7':['७','क्ष'],'8':['८','श्र'],'9':['९','('],'0':['०',')'],'-':['-','ः'],'=':['ृ','ऋ'],
+'q':['ौ','औ'],'w':['ै','ऐ'],'e':['ा','आ'],'r':['ी','ई'],'t':['ू','ऊ'],'y':['ब','भ'],'u':['ह','ङ'],'i':['ग','घ'],'o':['द','ध'],'p':['ज','झ'],'[':['ड','ढ'],']':['़','ञ'],'\\':['ॉ','ऑ'],
+'a':['ो','ओ'],'s':['े','ए'],'d':['्','अ'],'f':['ि','इ'],'g':['ु','उ'],'h':['प','फ'],'j':['र','ऱ'],'k':['क','ख'],'l':['त','थ'],';':['च','छ'],"'":['ट','ठ'],
+'z':['ॆ','ऎ'],'x':['ं','ँ'],'c':['म','ण'],'v':['न','ऩ'],'b':['व','ऴ'],'n':['ल','ळ'],'m':['स','श'],',':[',','ष'],'.':['.','।'],'/':['य','य़']};
+
+const HI_SH={'`':'~','-':'_','=':'+','[':'{',']':'}','\\':'|',';':':',"'":'"',',':'<','.':'>','/':'?'};
+const HI_IN={},HI_REV={};
+Object.keys(HI_LAYOUT).forEach(k=>{
+ const b=HI_LAYOUT[k][0],sh=HI_LAYOUT[k][1];
+ const baseCh=k,shCh=/[a-z]/.test(k)?k.toUpperCase():HI_SH[k];
+ if(baseCh!==b)HI_IN[baseCh]=b;else HI_IN[baseCh]=b;
+ if(shCh)HI_IN[shCh]=sh;
+ const f=CH2FINGER[k]||'th',sk=f[0]==='l'?'shift-r':'shift-l';
+ if(b&&b!==k)HI_REV[b]={id:k,shiftKey:null};
+ if(sh&&sh!==shCh)HI_REV[sh]={id:k,shiftKey:sk};
+});
+HI_IN['?']='?';HI_IN['!']='!';HI_IN['"']='"';HI_IN['"']='"';
+HI_REV['?']={id:'/',shiftKey:'shift-l'};HI_REV['!']={id:'1',shiftKey:'shift-r'};HI_REV['"']={id:"'",shiftKey:'shift-l'};
+function hiXlate(ch){return HI_IN[ch]!=null?HI_IN[ch]:ch}
+function hiChars(w){const out=[];let i=0;
+ while(i<w.length){if(/[\u0900-\u097F]/.test(w[i])){let j=i+1;while(j<w.length&&/[\u0900-\u0903\u093C\u093A-\u094F\u0951-\u0957\u0962-\u0963]/.test(w[j]))j++;out.push(w.slice(i,j));i=j}
+ else{out.push(w[i]);i++}}
+ return out}
+const HI_KEY=(id,w)=>({id,n:HI_LAYOUT[id]?HI_LAYOUT[id][0]:id,sh:HI_LAYOUT[id]?HI_LAYOUT[id][1]:'',f:CH2FINGER[id]||'r5',w:w||1});
+const KB_ROWS_HI=[
+ [HI_KEY('`'),HI_KEY('1'),HI_KEY('2'),HI_KEY('3'),HI_KEY('4'),HI_KEY('5'),HI_KEY('6'),HI_KEY('7'),HI_KEY('8'),HI_KEY('9'),HI_KEY('0'),HI_KEY('-'),HI_KEY('='),{n:'⌫',id:'backspace',w:2,f:'r5'}],
+ [{n:'Tab',id:'tab',w:1.5,f:'l5'},HI_KEY('q'),HI_KEY('w'),HI_KEY('e'),HI_KEY('r'),HI_KEY('t'),HI_KEY('y'),HI_KEY('u'),HI_KEY('i'),HI_KEY('o'),HI_KEY('p'),HI_KEY('['),HI_KEY(']'),{n:'\\',id:'\\',w:1.5,f:'r5'}],
+ [{n:'Caps',id:'caps',w:1.8,f:'l5'},HI_KEY('a'),HI_KEY('s'),HI_KEY('d'),HI_KEY('f'),HI_KEY('g'),HI_KEY('h'),HI_KEY('j'),HI_KEY('k'),HI_KEY('l'),HI_KEY(';'),HI_KEY("'"),{n:'Enter ⏎',id:'enter',w:2,f:'r5'}],
+ [{n:'Shift',id:'shift-l',w:2.3,f:'l5'},HI_KEY('z'),HI_KEY('x'),HI_KEY('c'),HI_KEY('v'),HI_KEY('b'),HI_KEY('n'),HI_KEY('m'),HI_KEY(','),HI_KEY('.'),HI_KEY('/'),{n:'Shift',id:'shift-r',w:2.3,f:'r5'}],
+ [{n:'Space',id:'space',w:10,f:'th'}]
+];
+const HI_VOWELS='अ आ इ ई उ ऊ ऋ ए ऐ ओ औ अं अः'.split(' ');
+const HI_MATRAS='ा ि ी ु ू ृ े ै ो ौ ं ँ ः ्'.split(' ');
+const HI_CONSONANTS='क ख ग घ ङ च छ ज झ ञ ट ठ ड ढ ण त थ द ध न प फ ब भ म य र ल व श ष स ह'.split(' ');
+const HI_SYL_CONS='क ख ग च छ ज ट ठ ड त थ द ध न प ब भ म य र ल व स ह'.split(' ');
+const HI_SYL_MAT=['','ा','ि','ी','ु','ू','े','ो'];
+const HINDI_STORIES=[
+{t:"चालाक खरगोश",s:"एक जंगल में एक शेर रहता था। वह रोज किसी न किसी जानवर को खा जाता था। सब जानवर बहुत डर गए। उन्होंने शेर से कहा, महाराज, हम रोज एक जानवर आपके पास भेज देंगे। शेर मान गया। एक दिन खरगोश की बारी आई। वह धीरे धीरे चला और देर से पहुँचा। शेर गुस्से में बोला, इतनी देर क्यों हुई? खरगोश ने कहा, रास्ते में एक दूसरा शेर मिल गया था। शेर को बहुत गुस्सा आया। खरगोश उसे एक कुएँ के पास ले गया। शेर ने पानी में अपनी परछाई देखी और कुएँ में कूद पड़ा। इस तरह खरगोश की समझदारी से सब जानवर बच गए।"},
+{t:"प्यासा कौआ",s:"गर्मी का दिन था। एक कौआ बहुत प्यासा था। वह पानी की तलाश में इधर उधर उड़ता रहा। अचानक उसे एक घड़ा दिखाई दिया। घड़े में थोड़ा सा पानी था, पर कौए की चोंच पानी तक नहीं पहुँचती थी। कौए ने सोचा और पास पड़े कंकड़ उठाकर घड़े में डालने लगा। धीरे धीरे पानी ऊपर आ गया। कौए ने पानी पिया और खुश होकर उड़ गया। सीख यह है कि समझदारी से हर मुश्किल हल हो जाती है।"},
+{t:"लालची कुत्ता",s:"एक कुत्ते को रोटी का एक टुकड़ा मिला। वह उसे लेकर नदी के पुल से जा रहा था। नीचे पानी में उसे अपनी परछाई दिखाई दी। उसे लगा कि दूसरे कुत्ते के पास बड़ी रोटी है। लालच में उसने उसे छीनने के लिए भौंकना शुरू किया। जैसे ही उसने मुँह खोला, रोटी नदी में गिर गई और बह गई। कुत्ता भूखा रह गया। सीख यह है कि लालच करना बुरी बात है।"},
+{t:"मेहनती चींटी",s:"गर्मी के दिनों में एक चींटी रोज खाना इकट्ठा करती थी। पास में एक टिड्डा गाना गाता रहता था। वह चींटी से कहता, आओ मेरे साथ खेलो। चींटी कहती, मुझे सर्दी के लिए खाना जमा करना है। टिड्डा हँसता रहा। फिर सर्दी आ गई। चारों ओर बर्फ गिरने लगी। टिड्डे के पास खाने को कुछ नहीं था। चींटी ने उसे थोड़ा खाना दिया। टिड्डे को अपनी गलती समझ आ गई। सीख यह है कि मेहनत का फल मीठा होता है।"},
+{t:"कछुआ और खरगोश",s:"एक खरगोश को अपनी तेज दौड़ पर बहुत घमंड था। वह कछुए की धीमी चाल पर हँसता था। एक दिन कछुए ने कहा, चलो दौड़ लगाते हैं। खरगोश हँसकर मान गया। दौड़ शुरू हुई। खरगोश बहुत आगे निकल गया। उसने सोचा, मैं थोड़ा आराम कर लेता हूँ। वह पेड़ के नीचे सो गया। कछुआ धीरे धीरे चलता रहा। जब खरगोश जागा, तब तक कछुआ जीत चुका था। सीख यह है कि घमंड नहीं करना चाहिए और लगातार मेहनत करनी चाहिए।"},
+{t:"एकता की ताकत",s:"एक किसान के चार बेटे थे। वे रोज आपस में लड़ते रहते थे। किसान बहुत दुखी था। एक दिन उसने चारों को बुलाया। उसने लकड़ियों का एक गट्ठर दिया और कहा, इसे तोड़ो। कोई भी बेटा उसे नहीं तोड़ सका। फिर किसान ने गट्ठर खोला और सबको एक एक लकड़ी दी। सबने आसानी से लकड़ी तोड़ दी। किसान ने कहा, अगर तुम सब साथ रहोगे तो कोई तुम्हें हरा नहीं सकता। बेटों ने लड़ाई छोड़ दी। सीख यह है कि एकता में बहुत ताकत होती है।"},
+{t:"ईमानदार लकड़हारा",s:"एक गरीब लकड़हारा नदी के किनारे लकड़ी काट रहा था। अचानक उसकी कुल्हाड़ी नदी में गिर गई। वह रोने लगा। तभी जल देवता प्रकट हुए। उन्होंने सोने की कुल्हाड़ी निकालकर पूछा, क्या यह तुम्हारी है? लकड़हारे ने कहा, नहीं। फिर चाँदी की कुल्हाड़ी दिखाई गई। उसने फिर मना कर दिया। अंत में लोहे की कुल्हाड़ी देखकर वह बोला, हाँ, यही मेरी है। देवता उसकी ईमानदारी से खुश हुए और तीनों कुल्हाड़ियाँ उसे दे दीं। सीख यह है कि ईमानदारी सबसे अच्छी नीति है।"},
+{t:"भेड़िया आया",s:"एक गाँव में एक चरवाहा लड़का भेड़ें चराता था। उसे मजाक सूझा। वह चिल्लाया, बचाओ, भेड़िया आया। गाँव वाले लाठी लेकर दौड़े, पर वहाँ कोई भेड़िया नहीं था। लड़का जोर से हँसने लगा। कुछ दिन बाद उसने फिर यही किया। लोग फिर आए और नाराज होकर लौट गए। एक दिन सच में भेड़िया आ गया। लड़का चिल्लाता रहा, पर कोई नहीं आया। भेड़िया उसकी कई भेड़ें ले गया। सीख यह है कि झूठ बोलने वाले पर कोई भरोसा नहीं करता।"},
+{t:"सोने का अंडा देने वाली मुर्गी",s:"एक किसान के पास एक अनोखी मुर्गी थी। वह रोज एक सोने का अंडा देती थी। किसान उसे बेचकर धीरे धीरे अमीर होने लगा। एक दिन उसके मन में लालच आया। उसने सोचा, इसके पेट में बहुत सारे अंडे होंगे। मैं सब एक साथ निकाल लूँगा। उसने मुर्गी को मार दिया। पर उसके पेट में कुछ नहीं था। किसान बहुत पछताया। सीख यह है कि लालच का फल हमेशा बुरा होता है।"},
+{t:"चिंटू चूहा और शेर",s:"एक जंगल में शेर पेड़ के नीचे सो रहा था। एक छोटा चूहा उसके ऊपर कूद गया। शेर जाग गया और उसे पकड़ लिया। चूहा बोला, महाराज, मुझे छोड़ दीजिए। मैं कभी आपके काम आऊँगा। शेर हँसा और उसे छोड़ दिया। कुछ दिन बाद शेर जाल में फँस गया। वह जोर से दहाड़ा। चूहा दौड़कर आया और अपने तेज दाँतों से जाल काट दिया। शेर आजाद हो गया। सीख यह है कि छोटा समझकर किसी को कम नहीं आँकना चाहिए।"},
+{t:"नन्हीं चिड़िया और बारिश",s:"एक पेड़ पर एक नन्हीं चिड़िया का घोंसला था। एक दिन बहुत तेज बारिश होने लगी। चिड़िया घोंसले में काँप रही थी। पास की डाल पर एक बंदर भीग रहा था। चिड़िया ने कहा, बंदर भाई, तुम भी घर बना लो। बंदर को गुस्सा आ गया। उसने चिड़िया का घोंसला तोड़ दिया। चिड़िया दुखी होकर उड़ गई। बंदर फिर भीगता रहा। सीख यह है कि अच्छी सलाह को ध्यान से सुनना चाहिए।"},
+{t:"राजू और उसकी गाय",s:"राजू एक छोटा सा लड़का था। उसके पास एक सुंदर गाय थी। वह रोज उसे हरी घास खिलाता था। गाय रोज दूध देती थी। राजू उस दूध को गाँव में बेचता था। उससे जो पैसे मिलते, उनसे वह स्कूल की किताबें खरीदता था। राजू गाय का बहुत ध्यान रखता था। एक दिन गाय बीमार हो गई। पूरा गाँव उसकी मदद के लिए आ गया। जल्दी ही गाय ठीक हो गई। राजू बहुत खुश हुआ।"},
+{t:"सच्चा दोस्त",s:"दो दोस्त जंगल से जा रहे थे। अचानक सामने एक भालू आ गया। एक दोस्त तुरंत पेड़ पर चढ़ गया। दूसरा दोस्त जमीन पर लेट गया और साँस रोक ली। भालू ने उसे सूँघा और चला गया। पेड़ वाले दोस्त ने पूछा, भालू ने तुम्हारे कान में क्या कहा? दूसरे दोस्त ने जवाब दिया, उसने कहा कि मुसीबत में साथ छोड़ने वाले से दोस्ती मत करना। सीख यह है कि सच्चा दोस्त वही है जो मुसीबत में साथ दे।"},
+{t:"मीठे आम",s:"एक गाँव में रामू नाम का माली रहता था। उसके बाग में आम के बहुत पेड़ थे। गर्मी में आम पक जाते थे। रामू रोज सुबह पेड़ों को पानी देता था। एक दिन कुछ बच्चे बाग में आए। उन्होंने कहा, चाचा, हमें एक आम दे दो। रामू ने सबको मीठे आम दिए। बच्चे खुश होकर घर गए। उन्होंने अपने माता पिता को बताया। सब लोग रामू के बाग से आम खरीदने लगे। रामू का काम खूब चल पड़ा।"},
+{t:"ईमानदार बच्चा",s:"मोहन स्कूल जा रहा था। रास्ते में उसे एक बटुआ मिला। बटुए में बहुत सारे पैसे थे। मोहन ने सोचा, यह किसी का खोया हुआ बटुआ है। वह उसे लेकर पास की दुकान पर गया। थोड़ी देर में एक बूढ़े आदमी वहाँ आए। वे अपना बटुआ ढूँढ रहे थे। मोहन ने उन्हें बटुआ लौटा दिया। बूढ़े आदमी ने उसे गले लगा लिया और बहुत धन्यवाद दिया। मोहन को बहुत अच्छा लगा।"},
+{t:"भोलू भालू और शहद",s:"भोलू भालू को शहद बहुत पसंद था। एक दिन उसे एक पेड़ पर मधुमक्खियों का छत्ता दिखा। वह पेड़ पर चढ़ गया और छत्ते में हाथ डाल दिया। मधुमक्खियाँ गुस्से में आ गईं। उन्होंने भोलू को काट लिया। भोलू दौड़कर नदी में कूद गया। उसका पूरा शरीर दुखने लगा। उसने सोचा, बिना सोचे समझे कोई काम नहीं करना चाहिए। उसके बाद भोलू ने शहद लेने का सही तरीका सीखा।"},
+{t:"चंदू का गुब्बारा",s:"चंदू को लाल रंग का गुब्बारा बहुत पसंद था। वह उसे लेकर बगीचे में खेल रहा था। अचानक हवा चली और गुब्बारा उसके हाथ से छूट गया। गुब्बारा ऊपर उड़ने लगा। चंदू रोने लगा। उसकी माँ ने उसे समझाया, बेटा, रोओ मत। हम नया गुब्बारा ले लेंगे। चंदू ने आँसू पोंछे। माँ उसे बाजार ले गई। वहाँ से उसने एक पीला गुब्बारा खरीदा। चंदू फिर से मुस्कुराने लगा।"},
+{t:"परी और फूल",s:"एक बगीचे में बहुत सुंदर फूल खिले थे। रात को एक छोटी सी परी वहाँ आई। उसने हर फूल को छूकर कहा, तुम और सुंदर बनो। सुबह जब माली आया, तो फूल पहले से भी ज्यादा चमक रहे थे। माली हैरान रह गया। उसने सोचा, यह जरूर किसी जादू का असर है। उसने बगीचे की और भी अच्छी देखभाल की। परी हर रात आती रही और बगीचा पूरे गाँव में मशहूर हो गया।"},
+{t:"रमेश की साइकिल",s:"रमेश को नई साइकिल चाहिए थी। उसके पिता ने कहा, पहले अच्छे नंबर लाओ। रमेश ने मन लगाकर पढ़ाई शुरू की। वह रोज सुबह जल्दी उठता और घंटों किताबें पढ़ता। परीक्षा में उसके बहुत अच्छे नंबर आए। उसके पिता बहुत खुश हुए। वे उसे बाजार ले गए और एक लाल साइकिल दिलाई। रमेश खुशी से झूम उठा। उसने समझ लिया कि मेहनत करने से हर सपना पूरा होता है।"},
+{t:"बंदर और मगरमच्छ",s:"एक नदी के किनारे जामुन के पेड़ पर एक बंदर रहता था। नदी में एक मगरमच्छ रहता था। दोनों में गहरी दोस्ती हो गई। बंदर रोज उसे मीठे जामुन खिलाता था। मगरमच्छ अपनी पत्नी के लिए भी जामुन ले गया। पत्नी ने कहा, जो बंदर रोज जामुन खाता है, उसका दिल कितना मीठा होगा। वह बंदर का दिल खाना चाहती थी। मगरमच्छ बंदर को घर बुलाकर ले गया। रास्ते में उसने सच बता दिया। बंदर बोला, मैं तो अपना दिल पेड़ पर ही छोड़ आया हूँ। मगरमच्छ उसे वापस पेड़ के पास ले आया। बंदर झट से पेड़ पर चढ़ गया और बच गया।"},
+{t:"दादी की सीख",s:"गर्मी की छुट्टियों में गोलू अपनी दादी के घर गया। दादी रोज रात को उसे कहानी सुनाती थीं। एक दिन गोलू ने पूछा, दादी, आप इतनी कहानियाँ कैसे जानती हैं? दादी मुस्कुराईं और बोलीं, बेटा, मैंने बचपन में खूब किताबें पढ़ी थीं। गोलू ने तय किया कि वह भी रोज किताब पढ़ेगा। छुट्टियाँ खत्म होने तक उसने दस किताबें पढ़ लीं। अब वह भी अपने दोस्तों को कहानियाँ सुनाता है।"},
+{t:"नीला तारा",s:"आसमान में एक नीला तारा रहता था। उसे लगता था कि वह दूसरे तारों जैसा चमकदार नहीं है। वह बहुत उदास रहता था। एक रात एक छोटी बच्ची ने आसमान की ओर देखा। उसने कहा, माँ, वह नीला तारा सबसे सुंदर है। माँ ने मुस्कुराकर हाँ कहा। नीले तारे ने यह सुन लिया। उसे बहुत खुशी हुई। उस दिन के बाद वह और ज्यादा चमकने लगा। सीख यह है कि हर किसी में कोई न कोई खास बात जरूर होती है।"}];
+const HINDI_WORDS=["राम", "सीता", "नम", "फल", "जल", "कमल", "गगन", "नदी", "पानी", "घर", "किताब", "लिखो", "देखो", "सुनो", "आओ", "जाओ", "खाओ", "पियो", "बोलो", "हँसो", "रात", "दिन", "सुबह", "शाम", "आसमान", "धरती", "हवा", "आग", "फूल", "तारा", "चाँद", "सूरज", "बादल", "बारिश", "खेल", "नाच", "गाना", "कहानी", "परिवार", "माता", "पिता", "बहन", "भाई", "दादी", "गाय", "हाथी", "शेर", "बाघ", "हिरण", "खरगोश", "कछुआ", "कौआ", "मछली", "रोटी", "दूध", "घी", "चीनी", "नमक", "आम", "केला", "अंगूर", "नया", "पुराना", "बुरा", "छोटा", "लाल", "नीला", "हरा", "पीला", "काला", "सफेद", "मीठा", "तेज", "धीमा", "आसान", "खुश", "दुखी", "सुंदर", "सफल", "अपना", "सब", "कोई", "यह", "वह", "कौन", "कब", "कहाँ", "कैसे", "एक", "दो", "तीन", "चार", "पाँच", "छह", "सात", "आठ", "नौ", "दस", "में", "था", "गया", "है", "ने", "उसे", "और", "को", "बहुत", "से", "के", "उसने", "का", "पर", "कि", "की", "कहा", "रोज", "दिया", "नहीं", "लगा", "सीख", "पास", "रहा", "गई", "बंदर", "उसके", "थी", "थे", "धीरे", "आया", "ले", "फिर", "रहता", "किसान", "भी", "किसी", "अपनी", "सोचा", "हो", "चाहिए", "गाँव", "गए", "हर", "करना", "साथ", "कुछ", "उसकी", "लिया", "रामू", "जानवर", "बोला", "अचानक", "होकर", "लेकर", "दी", "लालच", "लिए", "चींटी", "खाना", "मैं", "वाले", "वहाँ", "बाद", "आए", "राजू", "किताबें", "भालू", "मोहन", "बटुआ", "भोलू", "चंदू", "माँ", "जामुन", "जंगल", "देर", "हुई", "कूद", "दिखाई", "कौए", "तक", "ऊपर", "जा", "नीचे", "दूसरे", "शुरू", "किया", "ही", "मेहनत", "होता", "वे", "बेटा", "तुम", "तो", "काट", "हुए", "पूछा", "दे", "होने", "चूहा", "काम", "अपने", "जो", "पूरा", "रहे", "माली", "बाग", "बगीचे", "रमेश", "दिल", "गोलू", "महाराज", "हम", "आपके", "मान", "आई", "चला", "इतनी", "दूसरा", "कुएँ", "परछाई", "समझदारी", "बच", "सा", "मिला", "खोला", "गिर", "रह", "बात", "मुझे", "हँसता", "चारों", "ओर", "लगी", "समझ", "घमंड", "कछुए", "हैं", "कर", "हूँ", "सो", "जब", "सबको", "होती", "किनारे", "रोने", "देवता", "सोने", "हाँ", "यही", "ईमानदारी", "सबसे", "जोर", "लोग", "सच", "देती", "मन", "पेट", "सारे", "जाल", "घोंसला", "रही", "डाल", "खिलाता", "उस", "पैसे", "हुआ", "मुसीबत", "मत", "मीठे", "खूब", "आदमी", "शहद", "पसंद", "हाथ", "उसका", "बाजार", "छोटी", "परी", "पहले", "जरूर", "साइकिल", "नंबर", "खुशी", "थीं", "कहानियाँ"];
 </script>
 
 <script>
@@ -846,6 +920,8 @@ function keySpec(row){
 }
 function keyInfoFor(ch){
  if(ch===' ')return{base:' ',id:'space',finger:'th',label:'Space',shiftKey:null};
+ const hf=HI_REV[ch];
+ if(hf)return{base:ch,id:hf.id,finger:CH2FINGER[hf.id]||'th',label:hf.id.length===1?hf.id.toUpperCase():hf.id,shiftKey:hf.shiftKey};
  const lower=ch.toLowerCase();
  if(/[A-Z]/.test(ch)){const f=CH2FINGER[lower];return{base:ch,id:lower,finger:f,label:ch,shiftKey:f&&f[0]==='l'?'shift-r':'shift-l'}}
  if(SHIFTMAP[ch]){const b=SHIFTMAP[ch],f=CH2FINGER[b];return{base:ch,id:b,finger:f,label:ch,shiftKey:f&&f[0]==='l'?'shift-r':'shift-l'}}
@@ -855,7 +931,9 @@ class KB{
  constructor(container,opts){
   opts=opts||{};this.opts=opts;this.keys={};this.nextKeys=[];
   const kb=el('div','keyboard');
-  KB_ROWS.forEach(row=>{
+  const ROWS=opts.rows||KB_ROWS;
+  if(opts.rows)kb.classList.add('kb-hi');
+  ROWS.forEach(row=>{
    const r=el('div','kbrow');
    keySpec(row).forEach(k=>{
     const ke=el('div','key'+(k.id==='space'?' tall':''));
@@ -1025,12 +1103,85 @@ const Router={
 };
 function shakeEl(elm){if(!elm)return;elm.classList.remove('shake');void elm.offsetWidth;elm.classList.add('shake');setTimeout(()=>elm.classList.remove('shake'),380)}
 /* ================= HOME ================= */
+/* ================= HINDI VIEW ================= */
+Views.hindi=()=>{
+ const state={mode:'letters',letter:null};
+ const v=el('div');
+ v.innerHTML=`<div class="wrap section" style="padding-top:26px">
+  <div class="sec-head" style="text-align:center;margin-bottom:14px"><h1 class="sec-title">🇮🇳 <b>${esc(t('hi.title'))}</b></h1>
+  <p class="sec-sub" style="color:var(--muted);font-size:14px;margin-top:4px">${esc(t('hi.sub'))}</p></div>
+  <div class="modebar" id="himode"></div>
+  <div id="hihost"></div>
+  <div class="card" style="margin-top:26px;padding:20px 22px">
+   <h3 style="margin:0 0 4px">📖 ${esc(t('hi.abct'))}</h3>
+   <p style="color:var(--muted);font-size:13px;margin:0 0 6px">${esc(t('hi.abcd'))}</p>
+   <div class="abc-sec">Vowels · स्वर</div><div class="abc-grid" id="abcV"></div>
+   <div class="abc-sec">Matras · मात्रा</div><div class="abc-grid" id="abcM"></div>
+   <div class="abc-sec">Consonants · व्यंजन</div><div class="abc-grid" id="abcC"></div>
+  </div>
+  <div class="card" style="margin-top:18px;padding:20px 22px">
+   <h3 style="margin:0 0 4px">👆 ${esc(t('hi.guideT'))}</h3>
+   <p style="color:var(--muted);font-size:13px;margin:0 0 14px">${esc(t('hi.guideD'))}</p>
+   <div id="hikb"></div>
+  </div>
+ </div>`;
+ const host=v.querySelector('#hihost'),modebar=v.querySelector('#himode');
+ let tt=null,storyTitle=null,lastStory=-1,pickedLetter=null;
+ const HI_FONTS="'Noto Sans Devanagari','Nirmala UI','Mangal',sans-serif";
+ function keyLabel(ch){const h=HI_REV[ch];if(!h)return ch;return(h.shiftKey?'Shift+':'')+(h.id.length===1?h.id.toUpperCase():h.id)}
+ function pickStory(){let i;do{i=ri(0,HINDI_STORIES.length-1)}while(i===lastStory&&HINDI_STORIES.length>1);lastStory=i;return HINDI_STORIES[i]}
+ function makeWords(){
+  storyTitle=null;
+  if(state.mode==='story'){const st=pickStory();storyTitle=st.t;return st.s.split(/\s+/).filter(Boolean)}
+  if(state.mode==='words'){const out=[];let last='';for(let i=0;i<40;i++){let w;do{w=pick(HINDI_WORDS)}while(w===last&&HINDI_WORDS.length>1);last=w;out.push(w)}return out}
+  if(state.mode==='letters'&&pickedLetter){const L=pickedLetter;const out=[];for(let i=0;i<36;i++){const len=ri(2,4);let w='';for(let j=0;j<len;j++)w+=Math.random()<.55?L:(pick(HI_SYL_CONS)+pick(HI_SYL_MAT));out.push(w)}return out}
+  const out=[];for(let i=0;i<40;i++){const len=ri(2,3);let w='';for(let j=0;j<len;j++)w+=pick(HI_SYL_CONS)+pick(HI_SYL_MAT);out.push(w)}return out;
+ }
+ const label=()=>'hi.'+(state.mode==='letters'&&pickedLetter?'letters':state.mode);
+ function createTT(){
+  tt=TypingTest({
+   words:makeWords(),mode:'words',hindi:true,liveStats:true,showProgress:state.mode==='story',label:label(),
+   genWords:makeWords,genMore:()=>makeWords(),
+   meta:()=>({author:storyTitle?'📖 '+storyTitle:null}),
+   onFinish:res=>({pb:saveTest(res,label())})
+  });
+  host.appendChild(tt.el);
+ }
+ function chip(lbl,active,fn){const c=el('button','chip'+(active?' active':''),lbl);c.addEventListener('click',()=>{Sound.ensure();Sound.ui();fn()});return c}
+ function buildChips(){
+  modebar.innerHTML='';
+  [['letters','hi.m.letters'],['words','hi.m.words'],['story','hi.m.story']].forEach(([m,k])=>{
+   modebar.appendChild(chip(t(k),state.mode===m,()=>{state.mode=m;pickedLetter=null;refresh()}));
+  });
+  if(pickedLetter)modebar.appendChild(chip('🎯 '+pickedLetter+' · '+keyLabel(pickedLetter),true,()=>{pickedLetter=null;refresh()}));
+ }
+ function refresh(){
+  if(tt){tt.destroy();host.innerHTML='';tt=null}
+  createTT();buildChips();
+ }
+ function buildAbc(id,arr){
+  const g=v.querySelector('#'+id);
+  arr.forEach(ch=>{
+   const d=el('button','abc');d.type='button';
+   d.innerHTML=`<span class="ac" style="font-family:${HI_FONTS}">${esc(ch)}</span><span class="ak">${esc(keyLabel(ch))}</span>`;
+   d.title=t('hi.tapLetter');
+   d.addEventListener('click',()=>{Sound.ensure();Sound.ui();pickedLetter=ch;state.mode='letters';refresh();
+    host.scrollIntoView({behavior:'smooth',block:'center'})});
+   g.appendChild(d);
+  });
+ }
+ buildAbc('abcV',HI_VOWELS);buildAbc('abcM',HI_MATRAS);buildAbc('abcC',HI_CONSONANTS);
+ new KB(v.querySelector('#hikb'),{rows:KB_ROWS_HI,colorAll:true});
+ refresh();
+ return {el:v,destroy:()=>{if(tt)tt.destroy()}};
+};
+
 Views.home=()=>{
  const s=Store.data.stats;
  const v=el('div');
  const feats=[
   ['📚','feat.lessons','lessons'],['🎮','feat.games','games'],['👆','feat.guide','guide'],
-  ['📊','feat.stats','stats'],['🧊','feat.design','practice'],['🏆','feat.ach','stats']];
+  ['📊','feat.stats','stats'],['🧊','feat.design','practice'],['🇮🇳','feat.hindi','hindi']];
  const hows=[['1','how.1t','how.1d'],['2','how.2t','how.2d'],['3','how.3t','how.3d']];
  const demoPhrases=['Speed comes with accuracy 🚀','F and J are your anchors','Never look down! 😎','Practice a little every day','Typing is a superpower ⚡'];
  v.innerHTML=`
@@ -1141,7 +1292,8 @@ function TypingTest(opts){
  comp.append(...[statsbar,progrow,tcard,sparkWrap,hintChip,kbWrap,toolrow,results,input].filter(Boolean));
  // keyboard
  const wantKb=opts.showKb!==false&&Store.data.settings.showKb;
- if(wantKb){kb=new KB(kbWrap,{});kbWrap.style.display=''}
+ if(wantKb){kb=new KB(kbWrap,opts.hindi?{rows:KB_ROWS_HI}:{});kbWrap.style.display=''}
+ if(opts.hindi)comp.classList.add('tt-hi');
  else kbWrap.style.display='none';
  // toolrow
  const btnR=el('button','btn ghost sm',t('practice.restart'));
@@ -1160,7 +1312,7 @@ function TypingTest(opts){
  input.addEventListener('beforeinput',e=>{
   e.preventDefault();
   if(!finished){
-   if(e.inputType==='insertText'&&e.data){for(const ch of e.data)onChar(ch)}
+   if(e.inputType==='insertText'&&e.data){for(const ch of e.data)onChar(opts.hindi?hiXlate(ch):ch)}
    else if(e.inputType==='deleteContentBackward'||e.inputType==='deleteWordBackward')onBack();
   }
   if(input.value.length<2)input.value='  ';
@@ -1173,12 +1325,12 @@ function TypingTest(opts){
  document.addEventListener('keydown',docKey);
  // ---- build words
  function appendWordEls(list){list.forEach(w=>{const we=el('span','word');const arr=[];
-  for(const ch of w){const cs=el('span','ch');cs.textContent=ch;we.appendChild(cs);arr.push(cs)}
+  for(const ch of (opts.hindi?hiChars(w):[...w])){const cs=el('span','ch');cs.textContent=ch;we.appendChild(cs);arr.push(cs)}
   wordsEl.appendChild(we);wordEls.push(we);charEls.push(arr);typed.push('')})}
  function buildWords(){
   wordsEl.innerHTML='';wordEls=[];charEls=[];typed=W.map(()=>'');
   W.forEach(w=>{const we=el('span','word');const arr=[];
-   for(const ch of w){const cs=el('span','ch');cs.textContent=ch;we.appendChild(cs);arr.push(cs)}
+   for(const ch of (opts.hindi?hiChars(w):[...w])){const cs=el('span','ch');cs.textContent=ch;we.appendChild(cs);arr.push(cs)}
    wordsEl.appendChild(we);wordEls.push(we);charEls.push(arr)});
   wordsEl.appendChild(caret);
   lh=parseFloat(getComputedStyle(wordsEl).lineHeight)||45;
@@ -1186,6 +1338,12 @@ function TypingTest(opts){
  }
  function updateWord(i){
   const cur=W[i],tp=typed[i],arr=charEls[i];if(!arr)return;
+  if(opts.hindi){
+   const lens=hiChars(cur).map(c=>c.length);let u=0;
+   for(let j=0;j<arr.length;j++){const L=lens[j]||1;let cls='ch';
+    if(u<tp.length){const seg=cur.substr(u,L),ts=tp.substr(u,L);cls+=(ts===seg||seg.startsWith(ts))?' ok':' bad'}
+    arr[j].className=cls;u+=L}
+   wordEls[i].classList.toggle('cur',i===wi&&!finished);return}
   while(arr.length<Math.max(cur.length,tp.length)){const s=el('span','ch');wordEls[i].appendChild(s);arr.push(s)}
   while(arr.length>Math.max(cur.length,tp.length)){arr.pop().remove()}
   for(let j=0;j<arr.length;j++){
@@ -1202,7 +1360,14 @@ function TypingTest(opts){
  function setCaret(){
   const arr=charEls[wi]||[];if(!arr.length){caret.style.transform='translate(0,0)';return}
   let x,y;
-  if(typed[wi].length<arr.length){const s=arr[typed[wi].length];x=s.offsetLeft;y=s.offsetTop}
+  if(opts.hindi){
+   const cur=W[wi]||'',u=(typed[wi]||'').length,lens=hiChars(cur).map(c=>c.length);
+   let ci=0,acc=0;while(ci<lens.length-1&&acc+lens[ci]<=u){acc+=lens[ci];ci++}
+   const s=arr[ci]||arr[arr.length-1];
+   if(u>=acc+(lens[ci]||1)){x=s.offsetLeft+s.offsetWidth;y=s.offsetTop}
+   else{x=s.offsetLeft;y=s.offsetTop}
+  }
+  else if(typed[wi].length<arr.length){const s=arr[typed[wi].length];x=s.offsetLeft;y=s.offsetTop}
   else{const s=arr[arr.length-1];x=s.offsetLeft+s.offsetWidth;y=s.offsetTop}
   caret.style.transform=`translate(${x}px,${y}px)`;
   caret.classList.add('typing');clearTimeout(idleT);idleT=setTimeout(()=>caret.classList.remove('typing'),900);
@@ -1216,10 +1381,16 @@ function TypingTest(opts){
   const ch=tp.length<cur.length?cur[tp.length]:' ';
   const info=kb.setNext(ch);
   if(info){
-   hintChip.innerHTML=`<span class="fdot" style="--fc:${FINGER_COLOR[info.finger]}"></span>
-    <span style="color:var(--text);font-weight:800">${esc(t('f.'+info.finger))}</span><span>→</span>
-    <span class="keycap">${esc(info.id==='space'?'Space':info.label.toUpperCase())}</span>
+   if(opts.hindi){
+    hintChip.innerHTML=`<span style="font-size:22px;font-weight:800;color:var(--a2);font-family:'Noto Sans Devanagari','Nirmala UI','Mangal',sans-serif">${esc(ch===' '?'␣':ch)}</span><span>→</span>
+    <span class="keycap">${esc(info.id==='space'?'Space':(info.id.length===1?info.id.toUpperCase():info.id))}</span>
     ${info.shiftKey?'<span class="keycap">Shift</span>':''}`;
+   }else{
+    hintChip.innerHTML=`<span class="fdot" style="--fc:${FINGER_COLOR[info.finger]}"></span>
+     <span style="color:var(--text);font-weight:800">${esc(t('f.'+info.finger))}</span><span>→</span>
+     <span class="keycap">${esc(info.id==='space'?'Space':info.label.toUpperCase())}</span>
+     ${info.shiftKey?'<span class="keycap">Shift</span>':''}`;
+   }
   }else hintChip.innerHTML='';
  }
  function popCombo(txt){comboPop.textContent=txt;comboPop.classList.remove('on');void comboPop.offsetWidth;comboPop.classList.add('on')}
